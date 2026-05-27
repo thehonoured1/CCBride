@@ -5,6 +5,7 @@
   "dependencies": {
     "@expo/metro-runtime": "~56.0.13",
     "@supabase/supabase-js": "^2.106.2",
+    "@vercel/analytics": "^2.0.1",
     "expo": "~56.0.4",
     "expo-status-bar": "~56.0.4",
     "react": "19.2.3",

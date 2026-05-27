@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, ActivityIndicator, Text } from 'react-native';
 import { supabase } from './src/supabase';
 import { Session } from '@supabase/supabase-js';
+import { Analytics } from "@vercel/analytics/next"
 
 // Import your screens
 import AuthScreen from './src/AuthScreen';
