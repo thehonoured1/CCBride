@@ -1,4 +1,5 @@
 # CCB ride app
+https://ccb-ride.vercel.app/
 
 ## SQL files
 located in supabase/migrations , and is time tagged. Each change will be in a later file and will be read sequentially.
