@@ -86,7 +86,7 @@ export default function AuthScreen() {
           />
           <TextInput
             style={styles.input}
-            placeholder="WhatsApp Number (incl. country code)"
+            placeholder="WhatsApp Number (incl. country code, numbers only.)"
             value={phone}
             keyboardType="phone-pad"
             onChangeText={setPhone}

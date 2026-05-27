@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, ScrollView, Linking } from 'react-native';
 import { supabase } from './supabase';
+
 
 export default function DriverScreen({ userId }: { userId: string }) {
   const [activeParty, setActiveParty] = useState<any>(null);
@@ -192,7 +193,13 @@ export default function DriverScreen({ userId }: { userId: string }) {
                 />
                 <Button title="Save" onPress={() => updateAssignedTime(p.id)} />
               </View>
-
+              <View style={{ marginTop: 15 }}>
+                <Button 
+                  title="Message on WhatsApp" 
+                  onPress={() => Linking.openURL(`whatsapp://send?phone=${p.users?.phone_number}`)} 
+                  color="#25D366" 
+                />
+              </View>
               <View style={{ marginTop: 15 }}>
                 <Button title="Remove Passenger" onPress={() => kickPassenger(p.id)} color="#d9534f" />
               </View>
