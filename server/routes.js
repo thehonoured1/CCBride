@@ -22,7 +22,7 @@ const { sendWeeklyNotifications, scheduleFromConfig } = require("./scheduler");
 router.get("/status", async (req, res) => {
   try {
     await db.getDb();
-    const count = db.getAdminCount();
+    const count = await db.getAdminCount();
     res.json({ ok: true, needsSetup: count === 0, adminCount: count });
   } catch (e) {
     res.status(500).json({ ok: false, error: e.message });
@@ -33,7 +33,7 @@ router.get("/status", async (req, res) => {
 router.post("/auth/setup", async (req, res) => {
   try {
     await db.getDb();
-    if (db.getAdminCount() > 0)
+    if ((await db.getAdminCount()) > 0)
       return res
         .status(403)
         .json({
@@ -45,7 +45,7 @@ router.post("/auth/setup", async (req, res) => {
       return res
         .status(400)
         .json({ ok: false, error: "name, email and password required" });
-    const admin = db.createAdmin({
+    const admin = await db.createAdmin({
       name,
       email,
       passwordHash: hashPassword(password),
@@ -80,7 +80,7 @@ router.post("/auth/admin/login", async (req, res) => {
       return res
         .status(400)
         .json({ ok: false, error: "email and password required" });
-    const admin = db.getAdminByEmail(email);
+    const admin = await db.getAdminByEmail(email);
     console.log(
       "[login] Admin found:",
       !!admin,
@@ -132,7 +132,7 @@ router.post("/auth/rider/login", async (req, res) => {
       return res
         .status(400)
         .json({ ok: false, error: "email and password required" });
-    const rider = db.getRiderByEmail(email);
+    const rider = await db.getRiderByEmail(email);
     if (!rider)
       return res
         .status(401)
@@ -179,9 +179,9 @@ router.post("/auth/setup-account", async (req, res) => {
         .json({ ok: false, error: "Password must be at least 6 characters" });
 
     // Check rider first, then admin
-    const rider = db.getRiderByInviteToken(inviteToken);
+    const rider = await db.getRiderByInviteToken(inviteToken);
     if (rider) {
-      db.updateRider(rider.id, {
+      await db.updateRider(rider.id, {
         password_hash: hashPassword(password),
         account_setup: 1,
         invite_token: null,
@@ -195,9 +195,9 @@ router.post("/auth/setup-account", async (req, res) => {
       return res.json({ ok: true, token, name: rider.name, role: "rider" });
     }
 
-    const admin = db.getAdminByInviteToken(inviteToken);
+    const admin = await db.getAdminByInviteToken(inviteToken);
     if (admin) {
-      db.updateAdmin(admin.id, {
+      await db.updateAdmin(admin.id, {
         password_hash: hashPassword(password),
         account_setup: 1,
         invite_token: null,
@@ -240,11 +240,11 @@ router.get("/auth/me", async (req, res) => {
   // Verify user still exists in DB (handles DB reset / deleted accounts)
   await db.getDb();
   if (payload.role === "admin") {
-    const admin = db.getAdminByEmail(payload.email);
+    const admin = await db.getAdminByEmail(payload.email);
     if (!admin || !admin.account_setup)
       return res.status(401).json({ ok: false, error: "Account not found" });
   } else if (payload.role === "rider") {
-    const rider = db.getRiderByEmail(payload.email);
+    const rider = await db.getRiderByEmail(payload.email);
     if (!rider || !rider.active)
       return res.status(401).json({ ok: false, error: "Account not found" });
   }
@@ -257,7 +257,7 @@ router.get("/auth/me", async (req, res) => {
 router.get("/admins", requireAdmin, async (req, res) => {
   try {
     await db.getDb();
-    res.json({ ok: true, admins: db.getAdmins() });
+    res.json({ ok: true, admins: await db.getAdmins() });
   } catch (e) {
     res.status(500).json({ ok: false, error: e.message });
   }
@@ -280,7 +280,7 @@ router.post("/admins", requireAdmin, async (req, res) => {
         .json({ ok: false, error: "name and email required" });
     const crypto = require("crypto");
     const inviteToken = crypto.randomBytes(32).toString("hex");
-    const admin = db.createAdmin({ name, email, inviteToken, accountSetup: 0 });
+    const admin = await db.createAdmin({ name, email, inviteToken, accountSetup: 0 });
     const appUrl = (process.env.APP_URL || "http://localhost:3001").replace(
       /\/$/,
       "",
@@ -295,7 +295,7 @@ router.post("/admins", requireAdmin, async (req, res) => {
     }
     res.json({ ok: true, admin, setupUrl });
   } catch (e) {
-    const msg = e.message.includes("UNIQUE")
+    const msg = e.message.includes("UNIQUE") || e.message.includes("duplicate key")
       ? "Email already exists"
       : e.message;
     res.status(400).json({ ok: false, error: msg });
@@ -306,11 +306,12 @@ router.post("/admins/:id/resend-invite", requireAdmin, async (req, res) => {
   try {
     await db.getDb();
     const crypto = require("crypto");
-    const admin = db.getAdmins().find((a) => a.id === Number(req.params.id));
+    const admins = await db.getAdmins();
+    const admin = admins.find((a) => a.id === Number(req.params.id));
     if (!admin)
       return res.status(404).json({ ok: false, error: "Admin not found" });
     const newToken = crypto.randomBytes(32).toString("hex");
-    db.updateAdmin(admin.id, { invite_token: newToken });
+    await db.updateAdmin(admin.id, { invite_token: newToken });
     const appUrl = (process.env.APP_URL || "http://localhost:3001").replace(
       /\/$/,
       "",
@@ -318,7 +319,7 @@ router.post("/admins/:id/resend-invite", requireAdmin, async (req, res) => {
     const setupUrl = `${appUrl}/setup-account?token=${newToken}&role=admin`;
     if (process.env.GMAIL_USER)
       await sendAdminInviteEmail(
-        { ...admin, email: db.getAdminByEmail ? admin.email : admin.email },
+        { ...admin, email: admin.email },
         setupUrl,
       );
     res.json({ ok: true, setupUrl });
@@ -338,7 +339,7 @@ router.delete("/admins/:id", requireAdmin, async (req, res) => {
       return res
         .status(400)
         .json({ ok: false, error: "Cannot remove your own account" });
-    db.deleteAdmin(Number(req.params.id));
+    await db.deleteAdmin(Number(req.params.id));
     res.json({ ok: true });
   } catch (e) {
     res.status(500).json({ ok: false, error: e.message });
@@ -350,7 +351,7 @@ router.delete("/admins/:id", requireAdmin, async (req, res) => {
 router.get("/drivers", requireAdmin, async (req, res) => {
   try {
     await db.getDb();
-    res.json({ ok: true, drivers: db.getDrivers() });
+    res.json({ ok: true, drivers: await db.getDrivers() });
   } catch (e) {
     res.status(500).json({ ok: false, error: e.message });
   }
@@ -364,7 +365,7 @@ router.post("/drivers", requireAdmin, async (req, res) => {
       return res
         .status(400)
         .json({ ok: false, error: "name and email required" });
-    res.json({ ok: true, driver: db.addDriver({ name, email, phone }) });
+    res.json({ ok: true, driver: await db.addDriver({ name, email, phone }) });
   } catch (e) {
     res.status(400).json({ ok: false, error: e.message });
   }
@@ -375,7 +376,7 @@ router.patch("/drivers/:id", requireAdmin, async (req, res) => {
     await db.getDb();
     res.json({
       ok: true,
-      driver: db.updateDriver(Number(req.params.id), req.body),
+      driver: await db.updateDriver(Number(req.params.id), req.body),
     });
   } catch (e) {
     res.status(500).json({ ok: false, error: e.message });
@@ -385,7 +386,7 @@ router.patch("/drivers/:id", requireAdmin, async (req, res) => {
 router.delete("/drivers/:id", requireAdmin, async (req, res) => {
   try {
     await db.getDb();
-    db.deleteDriver(Number(req.params.id));
+    await db.deleteDriver(Number(req.params.id));
     res.json({ ok: true });
   } catch (e) {
     res.status(500).json({ ok: false, error: e.message });
@@ -397,7 +398,7 @@ router.delete("/drivers/:id", requireAdmin, async (req, res) => {
 router.get("/riders", requireAdmin, async (req, res) => {
   try {
     await db.getDb();
-    res.json({ ok: true, riders: db.getRiders() });
+    res.json({ ok: true, riders: await db.getRiders() });
   } catch (e) {
     res.status(500).json({ ok: false, error: e.message });
   }
@@ -411,7 +412,7 @@ router.post("/riders", requireAdmin, async (req, res) => {
       return res
         .status(400)
         .json({ ok: false, error: "name, email, phone and address required" });
-    const rider = db.addRider({ name, email, phone, address });
+    const rider = await db.addRider({ name, email, phone, address });
     const appUrl = (process.env.APP_URL || "http://localhost:3001").replace(
       /\/$/,
       "",
@@ -427,7 +428,7 @@ router.post("/riders", requireAdmin, async (req, res) => {
     }
     res.json({ ok: true, rider, setupUrl });
   } catch (e) {
-    const msg = e.message.includes("UNIQUE")
+    const msg = e.message.includes("UNIQUE") || e.message.includes("duplicate key")
       ? "Email already exists"
       : e.message;
     res.status(400).json({ ok: false, error: msg });
@@ -439,7 +440,7 @@ router.patch("/riders/:id", requireAdmin, async (req, res) => {
     await db.getDb();
     res.json({
       ok: true,
-      rider: db.updateRider(Number(req.params.id), req.body),
+      rider: await db.updateRider(Number(req.params.id), req.body),
     });
   } catch (e) {
     res.status(500).json({ ok: false, error: e.message });
@@ -449,7 +450,7 @@ router.patch("/riders/:id", requireAdmin, async (req, res) => {
 router.delete("/riders/:id", requireAdmin, async (req, res) => {
   try {
     await db.getDb();
-    db.deleteRider(Number(req.params.id));
+    await db.deleteRider(Number(req.params.id));
     res.json({ ok: true });
   } catch (e) {
     res.status(500).json({ ok: false, error: e.message });
@@ -461,7 +462,7 @@ router.post("/riders/:id/resend-invite", requireAdmin, async (req, res) => {
   try {
     await db.getDb();
     const crypto = require("crypto");
-    const rider = db.getRiderById(Number(req.params.id));
+    const rider = await db.getRiderById(Number(req.params.id));
     if (!rider)
       return res.status(404).json({ ok: false, error: "Rider not found" });
     if (rider.account_setup)
@@ -469,7 +470,7 @@ router.post("/riders/:id/resend-invite", requireAdmin, async (req, res) => {
         .status(400)
         .json({ ok: false, error: "Account already set up" });
     const newToken = crypto.randomBytes(32).toString("hex");
-    db.updateRider(rider.id, { invite_token: newToken });
+    await db.updateRider(rider.id, { invite_token: newToken });
     const appUrl = (process.env.APP_URL || "http://localhost:3001").replace(
       /\/$/,
       "",
@@ -491,7 +492,7 @@ router.get("/requests", requireAdmin, async (req, res) => {
     const { week } = req.query;
     res.json({
       ok: true,
-      requests: week ? db.getRequestsForWeek(week) : db.getAllRequests(),
+      requests: week ? await db.getRequestsForWeek(week) : await db.getAllRequests(),
     });
   } catch (e) {
     res.status(500).json({ ok: false, error: e.message });
@@ -502,7 +503,7 @@ router.get("/requests/current", requireAdmin, async (req, res) => {
   try {
     await db.getDb();
     const week = db.getThisSundayDate();
-    res.json({ ok: true, requests: db.getRequestsForWeek(week), week });
+    res.json({ ok: true, requests: await db.getRequestsForWeek(week), week });
   } catch (e) {
     res.status(500).json({ ok: false, error: e.message });
   }
@@ -516,7 +517,7 @@ router.patch("/requests/:id/status", requireAdmin, async (req, res) => {
       return res.status(400).json({ ok: false, error: "Invalid status" });
     res.json({
       ok: true,
-      request: db.updateRequestStatus(Number(req.params.id), status),
+      request: await db.updateRequestStatus(Number(req.params.id), status),
     });
   } catch (e) {
     res.status(500).json({ ok: false, error: e.message });
@@ -534,15 +535,19 @@ router.post("/requests/:id/assign", requireAdmin, async (req, res) => {
           ok: false,
           error: "driverId, pickupTime and pickupAddress required",
         });
-    const request = db.assignDriver(
+    const request = await db.assignDriver(
       Number(req.params.id),
       Number(driverId),
       pickupTime,
       pickupAddress,
     );
     if (process.env.GMAIL_USER) {
-      const rider = db.getRiders().find((r) => r.id === request.rider_id);
-      const driver = db.getDrivers().find((d) => d.id === Number(driverId));
+      const riders = await db.getRiders();
+      const rider = riders.find((r) => r.id === request.rider_id);
+      
+      const drivers = await db.getDrivers();
+      const driver = drivers.find((d) => d.id === Number(driverId));
+      
       const sunday = db.getThisSundayDate();
       if (rider?.email) {
         try {
@@ -579,7 +584,7 @@ router.post("/requests/:id/assign", requireAdmin, async (req, res) => {
 router.delete("/requests/:id", requireAdmin, async (req, res) => {
   try {
     await db.getDb();
-    db.run("DELETE FROM ride_requests WHERE id = ?", [Number(req.params.id)]);
+    await db.run("DELETE FROM ride_requests WHERE id = ?", [Number(req.params.id)]);
     res.json({ ok: true });
   } catch (e) {
     res.status(500).json({ ok: false, error: e.message });
@@ -591,7 +596,7 @@ router.delete("/requests/:id", requireAdmin, async (req, res) => {
 router.get("/notify/config", requireAdmin, async (req, res) => {
   try {
     await db.getDb();
-    res.json({ ok: true, config: db.getNotificationConfig() });
+    res.json({ ok: true, config: await db.getNotificationConfig() });
   } catch (e) {
     res.status(500).json({ ok: false, error: e.message });
   }
@@ -600,7 +605,7 @@ router.get("/notify/config", requireAdmin, async (req, res) => {
 router.patch("/notify/config", requireAdmin, async (req, res) => {
   try {
     await db.getDb();
-    const config = db.updateNotificationConfig(req.body);
+    const config = await db.updateNotificationConfig(req.body);
     await scheduleFromConfig(); // restart cron with new settings
     res.json({ ok: true, config });
   } catch (e) {
@@ -617,10 +622,30 @@ router.post("/notify", requireAdmin, async (req, res) => {
   }
 });
 
+// ─── Vercel Cron Webhook ──────────────────────────────────────────────────────
+router.get("/cron-notify", async (req, res) => {
+  try {
+    // 1. Verify this request actually came from Vercel using a secret password
+    const authHeader = req.headers.authorization || "";
+    if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+      return res.status(401).json({ ok: false, error: "Unauthorized cron ping" });
+    }
+
+    // 2. Fire the weekly emails
+    await db.getDb();
+    const { sendWeeklyNotifications } = require("./scheduler");
+    const result = await sendWeeklyNotifications();
+    
+    res.json({ ok: true, ...result });
+  } catch (e) {
+    res.status(500).json({ ok: false, error: e.message });
+  }
+});
+
 router.get("/notify/log", requireAdmin, async (req, res) => {
   try {
     await db.getDb();
-    res.json({ ok: true, log: db.getNotificationLog() });
+    res.json({ ok: true, log: await db.getNotificationLog() });
   } catch (e) {
     res.status(500).json({ ok: false, error: e.message });
   }
@@ -632,11 +657,12 @@ router.get("/stats", requireAdmin, async (req, res) => {
   try {
     await db.getDb();
     const week = db.getThisSundayDate();
-    const riders = db.getRiders();
-    const drivers = db.getDrivers();
-    const thisWeek = db.getRequestsForWeek(week);
-    const log = db.getNotificationLog();
-    const config = db.getNotificationConfig();
+    const riders = await db.getRiders();
+    const drivers = await db.getDrivers();
+    const thisWeek = await db.getRequestsForWeek(week);
+    const log = await db.getNotificationLog();
+    const config = await db.getNotificationConfig();
+    
     res.json({
       ok: true,
       stats: {
@@ -670,7 +696,7 @@ router.get("/reply", async (req, res) => {
       return res.send(
         htmlPage("❌ Invalid link", "Missing required info.", "#dc2626"),
       );
-    const rider = db.getRiderByToken(token);
+    const rider = await db.getRiderByToken(token);
     if (!rider)
       return res.send(
         htmlPage("❌ Unknown rider", "This link is not registered.", "#dc2626"),
@@ -684,10 +710,10 @@ router.get("/reply", async (req, res) => {
         ),
       );
     const week = db.getThisSundayDate();
-    const config = db.getNotificationConfig();
+    const config = await db.getNotificationConfig();
     const dest = config?.destination || "CCB";
     if (answer === "yes") {
-      db.createRequest({
+      await db.createRequest({
         riderId: rider.id,
         weekDate: week,
         destination: dest,
@@ -742,7 +768,7 @@ function htmlPage(title, message, color) {
 router.get("/rider/me", requireRider, async (req, res) => {
   try {
     await db.getDb();
-    const rider = db.getRiderById(req.user.id);
+    const rider = await db.getRiderById(req.user.id);
     if (!rider)
       return res.status(404).json({ ok: false, error: "Rider not found" });
     const { password_hash, token, invite_token, ...safe } = rider;
@@ -756,7 +782,7 @@ router.get("/rider/me", requireRider, async (req, res) => {
 router.get("/rider/requests", requireRider, async (req, res) => {
   try {
     await db.getDb();
-    res.json({ ok: true, requests: db.getRequestsForRider(req.user.id) });
+    res.json({ ok: true, requests: await db.getRequestsForRider(req.user.id) });
   } catch (e) {
     res.status(500).json({ ok: false, error: e.message });
   }
@@ -775,7 +801,7 @@ router.post("/rider/requests", requireRider, async (req, res) => {
           error: "destination, rideDate and rideTime are required",
         });
     const weekDate = rideDate; // use ride date as week key for custom requests
-    const request = db.createRequest({
+    const request = await db.createRequest({
       riderId: req.user.id,
       weekDate,
       destination,
@@ -794,16 +820,15 @@ router.post("/rider/requests", requireRider, async (req, res) => {
 router.delete("/rider/requests/:id", requireRider, async (req, res) => {
   try {
     await db.getDb();
-    const req2 = db
-      .getAllRequests()
-      .find((r) => r.id === Number(req.params.id));
+    const allReqs = await db.getAllRequests();
+    const req2 = allReqs.find((r) => r.id === Number(req.params.id));
     if (!req2 || req2.rider_id !== req.user.id)
       return res.status(403).json({ ok: false, error: "Not your request" });
     if (req2.status === "approved")
       return res
         .status(400)
         .json({ ok: false, error: "Cannot cancel an approved request" });
-    db.run("DELETE FROM ride_requests WHERE id = ?", [Number(req.params.id)]);
+    await db.run("DELETE FROM ride_requests WHERE id = ?", [Number(req.params.id)]);
     res.json({ ok: true });
   } catch (e) {
     res.status(500).json({ ok: false, error: e.message });

@@ -1,437 +1,302 @@
-const path = require("path");
-const fs = require("fs");
-const initSqlJs = require("../node_modules/sql.js");
 const crypto = require("crypto");
+const { createClient } = require("@supabase/supabase-js");
 
-const DB_PATH = path.join(__dirname, "../data/rideshare.db");
-let db;
+// 1. Initialize Supabase Client
+const SUPABASE_URL = process.env.SUPABASE_URL;
+const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_KEY;
 
+if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) {
+  console.warn("⚠️ Missing SUPABASE_URL or SUPABASE_SERVICE_KEY in .env");
+}
+
+const supabase = createClient(SUPABASE_URL || "", SUPABASE_SERVICE_KEY || "");
+
+// 2. Legacy Shims (To prevent routes.js/index.js from crashing)
 async function getDb() {
-  if (db) return db;
-  const SQL = await initSqlJs();
-  const dir = path.dirname(DB_PATH);
-  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-  if (fs.existsSync(DB_PATH)) {
-    db = new SQL.Database(fs.readFileSync(DB_PATH));
-  } else {
-    db = new SQL.Database();
-  }
-  migrate();
-  save();
-  return db;
+  return supabase;
 }
 
 function save() {
-  fs.writeFileSync(DB_PATH, Buffer.from(db.export()));
+  // No-op: Supabase saves to the cloud instantly
 }
 
-function migrate() {
-  // Admin accounts
-  db.run(`
-    CREATE TABLE IF NOT EXISTS admins (
-      id            INTEGER PRIMARY KEY AUTOINCREMENT,
-      name          TEXT NOT NULL,
-      email         TEXT NOT NULL UNIQUE,
-      password_hash TEXT,
-      invite_token     TEXT UNIQUE,
-      account_setup    INTEGER DEFAULT 0,
-      is_super_admin   INTEGER DEFAULT 0,
-      created_at       TEXT
-    )
-  `);
-
-  // Drivers
-  db.run(`
-    CREATE TABLE IF NOT EXISTS drivers (
-      id         INTEGER PRIMARY KEY AUTOINCREMENT,
-      name       TEXT NOT NULL,
-      email      TEXT,
-      phone      TEXT,
-      active     INTEGER DEFAULT 1,
-      created_at TEXT
-    )
-  `);
-
-  // Riders — with login credentials and invite flow
-  db.run(`
-    CREATE TABLE IF NOT EXISTS riders (
-      id            INTEGER PRIMARY KEY AUTOINCREMENT,
-      name          TEXT NOT NULL,
-      email         TEXT NOT NULL UNIQUE,
-      phone         TEXT,
-      address       TEXT NOT NULL,
-      password_hash TEXT,
-      invite_token  TEXT UNIQUE,      -- used in setup-account link
-      token         TEXT NOT NULL UNIQUE,  -- used in email YES/NO links
-      account_setup INTEGER DEFAULT 0,    -- 0=pending, 1=done
-      active        INTEGER DEFAULT 1,
-      created_at    TEXT
-    )
-  `);
-
-  // Ride requests — both auto (from notifications) and manual (from rider portal)
-  db.run(`
-    CREATE TABLE IF NOT EXISTS ride_requests (
-      id             INTEGER PRIMARY KEY AUTOINCREMENT,
-      rider_id       INTEGER NOT NULL,
-      week_date      TEXT NOT NULL,
-      destination    TEXT DEFAULT 'CCB',
-      ride_date      TEXT,            -- specific date rider wants (for custom requests)
-      ride_time      TEXT,            -- desired ride time from rider
-      notes          TEXT,            -- any notes from rider
-      type           TEXT DEFAULT 'auto',  -- 'auto' | 'custom'
-      status         TEXT DEFAULT 'pending',
-      driver_id      INTEGER,
-      pickup_time    TEXT,
-      pickup_address TEXT,
-      responded_at   TEXT,
-      FOREIGN KEY (rider_id)  REFERENCES riders(id)  ON DELETE CASCADE,
-      FOREIGN KEY (driver_id) REFERENCES drivers(id) ON DELETE SET NULL,
-      UNIQUE(rider_id, week_date, destination)
-    )
-  `);
-
-  // Notification schedule config (set by admin)
-  db.run(`
-    CREATE TABLE IF NOT EXISTS notification_config (
-      id            INTEGER PRIMARY KEY AUTOINCREMENT,
-      enabled       INTEGER DEFAULT 1,
-      cron_schedule TEXT DEFAULT '0 17 * * 4',
-      destination   TEXT DEFAULT 'CCB',
-      ride_day      TEXT DEFAULT 'Sunday',
-      message       TEXT DEFAULT 'Do you want a ride to CCB this Sunday?',
-      updated_at    TEXT
-    )
-  `);
-
-  // Insert default config if not exists
-  const existing = get("SELECT id FROM notification_config LIMIT 1");
-  if (!existing) {
-    db.run(`INSERT INTO notification_config (updated_at) VALUES (?)`, [
-      new Date().toISOString(),
-    ]);
+async function run(sql, params = []) {
+  // Shim for the raw DELETE query inside routes.js
+  if (sql.includes("DELETE FROM ride_requests")) {
+    await supabase.from("ride_requests").delete().eq("id", params[0]);
   }
-
-  // Notification log
-  db.run(`
-    CREATE TABLE IF NOT EXISTS notification_log (
-      id          INTEGER PRIMARY KEY AUTOINCREMENT,
-      week_date   TEXT NOT NULL,
-      sent_at     TEXT,
-      rider_count INTEGER
-    )
-  `);
 }
 
-// ─── Helpers ─────────────────────────────────────────────────────────────────
+// ─── Admin ────────────────────────────────────────────────────────────
 
-function all(sql, params = []) {
-  const stmt = db.prepare(sql);
-  stmt.bind(params);
-  const rows = [];
-  while (stmt.step()) rows.push(stmt.getAsObject());
-  stmt.free();
-  return rows;
+async function getAdminByEmail(email) {
+  const { data } = await supabase.from("admins").select("*").eq("email", email.toLowerCase()).maybeSingle();
+  return data;
 }
 
-function get(sql, params = []) {
-  return all(sql, params)[0] || null;
-}
-function run(sql, params = []) {
-  db.run(sql, params);
-  save();
-}
-
-// ─── Admin ────────────────────────────────────────────────────────────────────
-
-function getAdminByEmail(email) {
-  return get("SELECT * FROM admins WHERE email = ?", [email.toLowerCase()]);
+async function getAdminCount() {
+  const { count, error } = await supabase.from("admins").select("*", { count: "exact", head: true });
+  
+  // Force the server to tell us if the table doesn't exist
+  if (error) throw new Error("Database Error in getAdminCount: " + error.message);
+  
+  return count || 0;
 }
 
-function createAdmin({
-  name,
-  email,
-  passwordHash = null,
-  inviteToken = null,
-  accountSetup = 0,
-  isSuperAdmin = 0,
-}) {
-  const now = new Date().toISOString();
-  run(
-    "INSERT INTO admins (name, email, password_hash, invite_token, account_setup, is_super_admin, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)",
-    [
-      name.trim(),
-      email.trim().toLowerCase(),
-      passwordHash,
-      inviteToken,
-      accountSetup,
-      isSuperAdmin,
-      now,
-    ],
-  );
-  return get("SELECT * FROM admins WHERE email = ?", [email.toLowerCase()]);
+async function createAdmin({ name, email, passwordHash = null, inviteToken = null, accountSetup = 0, isSuperAdmin = 0 }) {
+  const { data, error } = await supabase.from("admins").insert([{
+    name: name.trim(),
+    email: email.trim().toLowerCase(),
+    password_hash: passwordHash,
+    invite_token: inviteToken,
+    account_setup: accountSetup,
+    is_super_admin: isSuperAdmin
+  }]).select().single();
+
+  // Force the server to tell us exactly why the insert was rejected
+  if (error) throw new Error("Database Error in createAdmin: " + error.message);
+
+  return data;
 }
 
-function getAdmins() {
-  return all(
-    "SELECT id, name, email, account_setup, is_super_admin, created_at FROM admins ORDER BY created_at ASC",
-  );
+async function getAdmins() {
+  const { data } = await supabase.from("admins").select("id, name, email, account_setup, is_super_admin, created_at").order("created_at", { ascending: true });
+  return data || [];
 }
 
-function getAdminByInviteToken(token) {
-  return get("SELECT * FROM admins WHERE invite_token = ?", [token]);
+async function getAdminByInviteToken(token) {
+  const { data } = await supabase.from("admins").select("*").eq("invite_token", token).maybeSingle();
+  return data;
 }
 
-function updateAdmin(id, fields) {
-  const allowed = [
-    "name",
-    "email",
-    "password_hash",
-    "invite_token",
-    "account_setup",
-  ];
+async function updateAdmin(id, fields) {
+  const allowed = ["name", "email", "password_hash", "invite_token", "account_setup"];
   const f = {};
   for (const k of allowed) if (fields[k] !== undefined) f[k] = fields[k];
-  const sets = Object.keys(f)
-    .map((k) => `${k} = ?`)
-    .join(", ");
-  run(`UPDATE admins SET ${sets} WHERE id = ?`, [...Object.values(f), id]);
-  return get("SELECT * FROM admins WHERE id = ?", [id]);
+  
+  const { data } = await supabase.from("admins").update(f).eq("id", id).select().single();
+  return data;
 }
 
-function deleteAdmin(id) {
-  run("DELETE FROM admins WHERE id = ?", [id]);
+async function deleteAdmin(id) {
+  await supabase.from("admins").delete().eq("id", id);
 }
 
-function getAdminCount() {
-  return (get("SELECT COUNT(*) as c FROM admins") || {}).c || 0;
+async function getAdminCount() {
+  const { count } = await supabase.from("admins").select("*", { count: "exact", head: true });
+  return count || 0;
 }
 
-// ─── Drivers ─────────────────────────────────────────────────────────────────
+// ─── Drivers ──────────────────────────────────────────────────────────
 
-function getDrivers(activeOnly = false) {
-  const where = activeOnly ? "WHERE active = 1" : "";
-  return all(`SELECT * FROM drivers ${where} ORDER BY name ASC`);
+async function getDrivers(activeOnly = false) {
+  let query = supabase.from("drivers").select("*").order("name", { ascending: true });
+  if (activeOnly) query = query.eq("active", 1);
+  
+  const { data } = await query;
+  return data || [];
 }
 
-function addDriver({ name, email = "", phone = "" }) {
-  const now = new Date().toISOString();
-  run(
-    "INSERT INTO drivers (name, email, phone, created_at) VALUES (?, ?, ?, ?)",
-    [name.trim(), email.trim().toLowerCase(), phone.trim(), now],
-  );
-  return get("SELECT * FROM drivers ORDER BY id DESC LIMIT 1");
+async function addDriver({ name, email = "", phone = "" }) {
+  const { data } = await supabase.from("drivers").insert([{
+    name: name.trim(),
+    email: email.trim().toLowerCase(),
+    phone: phone.trim()
+  }]).select().single();
+  return data;
 }
 
-function updateDriver(id, fields) {
+async function updateDriver(id, fields) {
   const allowed = ["name", "email", "phone", "active"];
   const f = {};
   for (const k of allowed) if (fields[k] !== undefined) f[k] = fields[k];
-  const sets = Object.keys(f)
-    .map((k) => `${k} = ?`)
-    .join(", ");
-  run(`UPDATE drivers SET ${sets} WHERE id = ?`, [...Object.values(f), id]);
-  return get("SELECT * FROM drivers WHERE id = ?", [id]);
+  
+  const { data } = await supabase.from("drivers").update(f).eq("id", id).select().single();
+  return data;
 }
 
-function deleteDriver(id) {
-  run("DELETE FROM drivers WHERE id = ?", [id]);
+async function deleteDriver(id) {
+  await supabase.from("drivers").delete().eq("id", id);
 }
 
-// ─── Riders ──────────────────────────────────────────────────────────────────
+// ─── Riders ───────────────────────────────────────────────────────────
 
-function getRiders(activeOnly = false) {
-  const where = activeOnly ? "WHERE active = 1" : "";
-  return all(`SELECT * FROM riders ${where} ORDER BY name ASC`);
-}
-
-function getRiderById(id) {
-  return get("SELECT * FROM riders WHERE id = ?", [id]);
-}
-function getRiderByEmail(email) {
-  return get("SELECT * FROM riders WHERE email = ?", [email.toLowerCase()]);
-}
-function getRiderByToken(token) {
-  return get("SELECT * FROM riders WHERE token = ?", [token]);
-}
-function getRiderByInviteToken(token) {
-  return get("SELECT * FROM riders WHERE invite_token = ?", [token]);
+async function getRiders(activeOnly = false) {
+  let query = supabase.from("riders").select("*").order("name", { ascending: true });
+  if (activeOnly) query = query.eq("active", 1);
+  
+  const { data } = await query;
+  return data || [];
 }
 
-function addRider({ name, email, phone = "", address }) {
+async function getRiderById(id) {
+  const { data } = await supabase.from("riders").select("*").eq("id", id).maybeSingle();
+  return data;
+}
+
+async function getRiderByEmail(email) {
+  const { data } = await supabase.from("riders").select("*").eq("email", email.toLowerCase()).maybeSingle();
+  return data;
+}
+
+async function getRiderByToken(token) {
+  const { data } = await supabase.from("riders").select("*").eq("token", token).maybeSingle();
+  return data;
+}
+
+async function getRiderByInviteToken(token) {
+  const { data } = await supabase.from("riders").select("*").eq("invite_token", token).maybeSingle();
+  return data;
+}
+
+async function addRider({ name, email, phone = "", address }) {
   const token = crypto.randomBytes(24).toString("hex");
   const inviteToken = crypto.randomBytes(32).toString("hex");
-  const now = new Date().toISOString();
-  run(
-    "INSERT INTO riders (name, email, phone, address, token, invite_token, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)",
-    [
-      name.trim(),
-      email.trim().toLowerCase(),
-      phone.trim(),
-      address.trim(),
-      token,
-      inviteToken,
-      now,
-    ],
-  );
-  return get("SELECT * FROM riders WHERE token = ?", [token]);
+  
+  const { data } = await supabase.from("riders").insert([{
+    name: name.trim(),
+    email: email.trim().toLowerCase(),
+    phone: phone.trim(),
+    address: address.trim(),
+    token: token,
+    invite_token: inviteToken
+  }]).select().single();
+  return data;
 }
 
-function updateRider(id, fields) {
-  const allowed = [
-    "name",
-    "email",
-    "phone",
-    "address",
-    "active",
-    "password_hash",
-    "account_setup",
-    "invite_token",
-  ];
+async function updateRider(id, fields) {
+  const allowed = ["name", "email", "phone", "address", "active", "password_hash", "account_setup", "invite_token"];
   const f = {};
   for (const k of allowed) if (fields[k] !== undefined) f[k] = fields[k];
-  const sets = Object.keys(f)
-    .map((k) => `${k} = ?`)
-    .join(", ");
-  run(`UPDATE riders SET ${sets} WHERE id = ?`, [...Object.values(f), id]);
-  return get("SELECT * FROM riders WHERE id = ?", [id]);
+  
+  const { data } = await supabase.from("riders").update(f).eq("id", id).select().single();
+  return data;
 }
 
-function deleteRider(id) {
-  run("DELETE FROM riders WHERE id = ?", [id]);
+async function deleteRider(id) {
+  await supabase.from("riders").delete().eq("id", id);
 }
 
-// ─── Ride requests ────────────────────────────────────────────────────────────
+// ─── Ride Requests ────────────────────────────────────────────────────
 
-function getRequestsForWeek(weekDate) {
-  return all(
-    `
-    SELECT rr.*, r.name AS rider_name, r.email AS rider_email, r.address AS rider_address, r.phone AS rider_phone,
-           d.name AS driver_name
-    FROM ride_requests rr
-    JOIN riders r  ON r.id = rr.rider_id
-    LEFT JOIN drivers d ON d.id = rr.driver_id
-    WHERE rr.week_date = ?
-    ORDER BY rr.responded_at ASC
-  `,
-    [weekDate],
-  );
+// Helper to flatten PostgreSQL relational joins into the flat object the frontend expects
+function flattenRequest(r) {
+  const flat = { ...r };
+  if (r.riders) {
+    flat.rider_name = r.riders.name;
+    flat.rider_email = r.riders.email;
+    flat.rider_address = r.riders.address;
+    flat.rider_phone = r.riders.phone;
+  }
+  if (r.drivers) {
+    flat.driver_name = r.drivers.name;
+    flat.driver_phone = r.drivers.phone;
+  }
+  delete flat.riders;
+  delete flat.drivers;
+  return flat;
 }
 
-function getAllRequests() {
-  return all(`
-    SELECT rr.*, r.name AS rider_name, r.email AS rider_email,
-           d.name AS driver_name
-    FROM ride_requests rr
-    JOIN riders r  ON r.id = rr.rider_id
-    LEFT JOIN drivers d ON d.id = rr.driver_id
-    ORDER BY rr.week_date DESC, rr.responded_at ASC
-  `);
+async function getRequestsForWeek(weekDate) {
+  const { data } = await supabase
+    .from("ride_requests")
+    .select(`*, riders:rider_id (name, email, address, phone), drivers:driver_id (name)`)
+    .eq("week_date", weekDate)
+    .order("responded_at", { ascending: true });
+  
+  return (data || []).map(flattenRequest);
 }
 
-function getRequestsForRider(riderId) {
-  return all(
-    `
-    SELECT rr.*, d.name AS driver_name, d.phone AS driver_phone
-    FROM ride_requests rr
-    LEFT JOIN drivers d ON d.id = rr.driver_id
-    WHERE rr.rider_id = ?
-    ORDER BY rr.responded_at DESC
-  `,
-    [riderId],
-  );
+async function getAllRequests() {
+  const { data } = await supabase
+    .from("ride_requests")
+    .select(`*, riders:rider_id (name, email), drivers:driver_id (name)`)
+    .order("week_date", { ascending: false })
+    .order("responded_at", { ascending: true });
+  
+  return (data || []).map(flattenRequest);
 }
 
-function createRequest({
-  riderId,
-  weekDate,
-  destination = "CCB",
-  type = "auto",
-  rideDate = null,
-  rideTime = null,
-  notes = null,
-}) {
-  const now = new Date().toISOString();
-  run(
-    `INSERT OR IGNORE INTO ride_requests
-       (rider_id, week_date, destination, type, ride_date, ride_time, notes, responded_at)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-    [riderId, weekDate, destination, type, rideDate, rideTime, notes, now],
-  );
-  return get(
-    `SELECT rr.* FROM ride_requests rr WHERE rr.rider_id = ? AND rr.week_date = ? AND rr.destination = ?`,
-    [riderId, weekDate, destination],
-  );
+async function getRequestsForRider(riderId) {
+  const { data } = await supabase
+    .from("ride_requests")
+    .select(`*, drivers:driver_id (name, phone)`)
+    .eq("rider_id", riderId)
+    .order("responded_at", { ascending: false });
+  
+  return (data || []).map(flattenRequest);
 }
 
-function updateRequestStatus(id, status) {
-  run("UPDATE ride_requests SET status = ? WHERE id = ?", [status, id]);
-  return get("SELECT * FROM ride_requests WHERE id = ?", [id]);
+async function createRequest({ riderId, weekDate, destination = "CCB", type = "auto", rideDate = null, rideTime = null, notes = null }) {
+  // Upsert handles the INSERT OR IGNORE behavior
+  const { data } = await supabase.from("ride_requests").upsert({
+    rider_id: riderId,
+    week_date: weekDate,
+    destination: destination,
+    type: type,
+    ride_date: rideDate,
+    ride_time: rideTime,
+    notes: notes,
+    responded_at: new Date().toISOString()
+  }, { onConflict: "rider_id, week_date, destination", ignoreDuplicates: true }).select().single();
+  
+  return data;
 }
 
-function assignDriver(requestId, driverId, pickupTime, pickupAddress) {
-  run(
-    "UPDATE ride_requests SET driver_id = ?, pickup_time = ?, pickup_address = ?, status = ? WHERE id = ?",
-    [
-      driverId || null,
-      pickupTime || null,
-      pickupAddress || null,
-      "approved",
-      requestId,
-    ],
-  );
-  return get(
-    `
-    SELECT rr.*, r.name AS rider_name, r.email AS rider_email, r.phone AS rider_phone,
-           d.name AS driver_name
-    FROM ride_requests rr
-    JOIN riders r  ON r.id = rr.rider_id
-    LEFT JOIN drivers d ON d.id = rr.driver_id
-    WHERE rr.id = ?
-  `,
-    [requestId],
-  );
+async function updateRequestStatus(id, status) {
+  const { data } = await supabase.from("ride_requests").update({ status }).eq("id", id).select().single();
+  return data;
 }
 
-// ─── Notification config ──────────────────────────────────────────────────────
-
-function getNotificationConfig() {
-  return get("SELECT * FROM notification_config ORDER BY id DESC LIMIT 1");
+async function assignDriver(requestId, driverId, pickupTime, pickupAddress) {
+  await supabase.from("ride_requests").update({
+    driver_id: driverId || null,
+    pickup_time: pickupTime || null,
+    pickup_address: pickupAddress || null,
+    status: "approved"
+  }).eq("id", requestId);
+  
+  const { data } = await supabase
+    .from("ride_requests")
+    .select(`*, riders:rider_id (name, email, phone), drivers:driver_id (name)`)
+    .eq("id", requestId)
+    .single();
+    
+  return flattenRequest(data);
 }
 
-function updateNotificationConfig(fields) {
-  const allowed = [
-    "enabled",
-    "cron_schedule",
-    "destination",
-    "ride_day",
-    "message",
-  ];
+// ─── Notification Config ──────────────────────────────────────────────
+
+async function getNotificationConfig() {
+  const { data } = await supabase.from("notification_config").select("*").order("id", { ascending: false }).limit(1).maybeSingle();
+  return data;
+}
+
+async function updateNotificationConfig(fields) {
+  const allowed = ["enabled", "cron_schedule", "destination", "ride_day", "message"];
   const f = {};
   for (const k of allowed) if (fields[k] !== undefined) f[k] = fields[k];
   f.updated_at = new Date().toISOString();
-  const sets = Object.keys(f)
-    .map((k) => `${k} = ?`)
-    .join(", ");
-  run(`UPDATE notification_config SET ${sets} WHERE id = 1`, Object.values(f));
-  return getNotificationConfig();
+  
+  const { data } = await supabase.from("notification_config").update(f).eq("id", 1).select().single();
+  return data;
 }
 
-// ─── Notification log ─────────────────────────────────────────────────────────
+// ─── Notification Log ─────────────────────────────────────────────────
 
-function logNotification(weekDate, riderCount) {
-  const now = new Date().toISOString();
-  run(
-    "INSERT INTO notification_log (week_date, sent_at, rider_count) VALUES (?, ?, ?)",
-    [weekDate, now, riderCount],
-  );
+async function logNotification(weekDate, riderCount) {
+  await supabase.from("notification_log").insert([{
+    week_date: weekDate,
+    rider_count: riderCount
+  }]);
 }
 
-function getNotificationLog() {
-  return all("SELECT * FROM notification_log ORDER BY sent_at DESC LIMIT 20");
+async function getNotificationLog() {
+  const { data } = await supabase.from("notification_log").select("*").order("sent_at", { ascending: false }).limit(20);
+  return data || [];
 }
 
-// ─── Utility ─────────────────────────────────────────────────────────────────
+// ─── Utility ──────────────────────────────────────────────────────────
 
 function getThisSundayDate() {
   const now = new Date();

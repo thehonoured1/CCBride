@@ -2,3 +2,21 @@
 .env
 .env.local
 .env.*.local
+
+# Dependencies
+node_modules/
+npm-debug.log*
+
+# Environment Variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Build files (React)
+build/
+
+# Local database files
+*.db
+*.sqlite
