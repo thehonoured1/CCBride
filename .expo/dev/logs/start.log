@@ -1,0 +1,646 @@
+{"_e":"root:init","_t":1779746154504,"format":"v0-jsonl","version":"56.1.11"}
+{"_e":"env:mode","_t":1779746154506,"nodeEnv":"development","babelEnv":"development","mode":"development"}
+{"_e":"env:load","_t":1779746154514,"mode":"development","files":[],"env":{}}
+{"_e":"root:init","_t":1779824799495,"format":"v0-jsonl","version":"56.1.11"}
+{"_e":"env:mode","_t":1779824799497,"nodeEnv":"development","babelEnv":"development","mode":"development"}
+{"_e":"env:load","_t":1779824799505,"mode":"development","files":[],"env":{}}
+{"_e":"devserver:start","_t":1779824800197,"mode":"development","web":true,"baseUrl":"","asyncRoutes":false,"routerRoot":"../..\\..\\app","serverComponents":false,"serverActions":false,"serverRendering":false,"apiRoutes":false,"exporting":false}
+{"_e":"metro:config","_t":1779824801253,"serverRoot":"../..\\..","projectRoot":"../..\\..","exporting":false,"flags":{"autolinkingModuleResolution":false,"serverActions":false,"serverComponents":false,"reactCompiler":false,"optimizeGraph":false,"treeshaking":false,"logbox":false}}
+{"_e":"metro:instantiate","_t":1779824811164,"atlas":false,"workers":10,"host":"::","port":8081}
+{"_e":"metro:bundling:started","_t":1779824830866,"id":"1","platform":"web","environment":null,"entry":"index.ts"}
+{"_e":"metro:bundling:progress","_t":1779824830866,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1779824830877,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1779824832195,"id":"1","progress":0.010000000000000002,"total":1,"current":1}
+{"_e":"metro:bundling:progress","_t":1779824832296,"id":"1","progress":0.010000000000000002,"total":3,"current":1}
+{"_e":"metro:bundling:progress","_t":1779824832474,"id":"1","progress":0.04000000000000001,"total":3,"current":2}
+{"_e":"metro:bundling:progress","_t":1779824833533,"id":"1","progress":0.09,"total":3,"current":3}
+{"_e":"metro:bundling:progress","_t":1779824833642,"id":"1","progress":0.28444444444444444,"total":15,"current":8}
+{"_e":"metro:bundling:progress","_t":1779824833742,"id":"1","progress":0.33518005540166207,"total":19,"current":11}
+{"_e":"metro:bundling:progress","_t":1779824835098,"id":"1","progress":0.39889196675900274,"total":19,"current":12}
+{"_e":"metro:bundling:progress","_t":1779824835198,"id":"1","progress":0.48393194706994325,"total":23,"current":16}
+{"_e":"metro:bundling:progress","_t":1779824835317,"id":"1","progress":0.48393194706994325,"total":54,"current":25}
+{"_e":"metro:bundling:progress","_t":1779824835420,"id":"1","progress":0.48393194706994325,"total":64,"current":39}
+{"_e":"metro:bundling:progress","_t":1779824835520,"id":"1","progress":0.6220987899226343,"total":71,"current":56}
+{"_e":"metro:bundling:progress","_t":1779824835620,"id":"1","progress":0.7628585162634193,"total":79,"current":69}
+{"_e":"metro:bundling:progress","_t":1779824835723,"id":"1","progress":0.8622448979591837,"total":84,"current":78}
+{"_e":"metro:bundling:progress","_t":1779824835826,"id":"1","progress":0.8622448979591837,"total":93,"current":84}
+{"_e":"metro:bundling:failed","_t":1779824835936,"id":"1","message":"Unable to resolve \"react-native-web/dist/exports/View\" from \"App.tsx\"\n> 1 | import React, { useState, useEffect } from 'react';\n  2 | import { View, ActivityIndicator, Text } from 'react-native';\n  3 | import { supabase } from './src/supabase';\n  4 | import { Session } from '@supabase/supabase-js';","importStack":"\u001b[1mImport stack:\u001b[22m\n\n\u001b[90m \u001b[39mApp.tsx\n\u001b[90m |\u001b[39m \u001b[36mimport\u001b[39m \u001b[32m\"react-native-web/dist/exports/View\"\u001b[39m\n\n\u001b[90m \u001b[39mindex.ts\n\u001b[90m |\u001b[39m \u001b[36mimport\u001b[39m \u001b[32m\"./App\"\u001b[39m\n\n\u001b[90m \u001b[39m\n\u001b[90m |\u001b[39m \u001b[36mimport\u001b[39m \u001b[32m\"./index.ts\"\u001b[39m\n","filename":null,"targetModuleName":"react-native-web/dist/exports/View","originModulePath":"App.tsx"}
+{"_e":"root:init","_t":1779825170217,"format":"v0-jsonl","version":"56.1.12"}
+{"_e":"env:mode","_t":1779825170220,"nodeEnv":"development","babelEnv":"development","mode":"development"}
+{"_e":"env:load","_t":1779825170226,"mode":"development","files":[],"env":{}}
+{"_e":"devserver:start","_t":1779825170790,"mode":"development","web":true,"baseUrl":"","asyncRoutes":false,"routerRoot":"../..\\..\\app","serverComponents":false,"serverActions":false,"serverRendering":false,"apiRoutes":false,"exporting":false}
+{"_e":"metro:config","_t":1779825171585,"serverRoot":"../..\\..","projectRoot":"../..\\..","exporting":false,"flags":{"autolinkingModuleResolution":false,"serverActions":false,"serverComponents":false,"reactCompiler":false,"optimizeGraph":false,"treeshaking":false,"logbox":false}}
+{"_e":"metro:instantiate","_t":1779825181847,"atlas":false,"workers":10,"host":"::","port":8081}
+{"_e":"metro:bundling:started","_t":1779825187088,"id":"1","platform":"web","environment":null,"entry":"index.ts"}
+{"_e":"metro:bundling:progress","_t":1779825187089,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1779825187095,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1779825187195,"id":"1","progress":0.08163265306122448,"total":49,"current":14}
+{"_e":"metro:bundling:progress","_t":1779825187296,"id":"1","progress":0.5587184981124376,"total":99,"current":74}
+{"_e":"metro:bundling:progress","_t":1779825187400,"id":"1","progress":0.7677097505668934,"total":105,"current":92}
+{"_e":"metro:bundling:progress","_t":1779825188864,"id":"1","progress":0.7844897959183673,"total":105,"current":93}
+{"_e":"metro:bundling:progress","_t":1779825188964,"id":"1","progress":0.7844897959183673,"total":107,"current":94}
+{"_e":"metro:bundling:progress","_t":1779825189069,"id":"1","progress":0.7844897959183673,"total":124,"current":102}
+{"_e":"metro:bundling:progress","_t":1779825189172,"id":"1","progress":0.7844897959183673,"total":150,"current":116}
+{"_e":"metro:bundling:progress","_t":1779825189273,"id":"1","progress":0.7844897959183673,"total":159,"current":131}
+{"_e":"metro:bundling:progress","_t":1779825189374,"id":"1","progress":0.7844897959183673,"total":170,"current":143}
+{"_e":"metro:bundling:progress","_t":1779825189477,"id":"1","progress":0.7844897959183673,"total":183,"current":152}
+{"_e":"metro:bundling:progress","_t":1779825189579,"id":"1","progress":0.7844897959183673,"total":201,"current":166}
+{"_e":"metro:bundling:progress","_t":1779825189682,"id":"1","progress":0.7844897959183673,"total":226,"current":185}
+{"_e":"metro:bundling:progress","_t":1779825189783,"id":"1","progress":0.7844897959183673,"total":231,"current":197}
+{"_e":"metro:bundling:progress","_t":1779825189884,"id":"1","progress":0.7909642372114077,"total":235,"current":209}
+{"_e":"metro:bundling:progress","_t":1779825189985,"id":"1","progress":0.8229628442735317,"total":237,"current":215}
+{"_e":"metro:bundling:progress","_t":1779825190091,"id":"1","progress":0.8229628442735317,"total":238,"current":215}
+{"_e":"metro:bundling:progress","_t":1779825190157,"id":"1","progress":0.8236706447284796,"total":238,"current":216}
+{"_e":"metro:bundling:progress","_t":1779825190262,"id":"1","progress":0.8236706447284796,"total":257,"current":224}
+{"_e":"metro:bundling:progress","_t":1779825190384,"id":"1","progress":0.8236706447284796,"total":260,"current":232}
+{"_e":"metro:bundling:progress","_t":1779825190492,"id":"1","progress":0.8236706447284796,"total":266,"current":237}
+{"_e":"metro:bundling:progress","_t":1779825190593,"id":"1","progress":0.8236706447284796,"total":283,"current":254}
+{"_e":"metro:bundling:progress","_t":1779825190695,"id":"1","progress":0.8515727916281932,"total":285,"current":263}
+{"_e":"metro:bundling:progress","_t":1779825190799,"id":"1","progress":0.9123543400713436,"total":290,"current":277}
+{"_e":"metro:bundling:progress","_t":1779825190901,"id":"1","progress":0.9673757790858726,"total":304,"current":299}
+{"_e":"metro:bundling:progress","_t":1779825191003,"id":"1","progress":0.9673757790858726,"total":308,"current":302}
+{"_e":"metro:bundling:progress","_t":1779825191105,"id":"1","progress":0.9872612765262482,"total":313,"current":311}
+{"_e":"metro:bundling:progress","_t":1779825191204,"id":"1","progress":0.9936407156476936,"total":314,"current":313}
+{"_e":"metro:bundling:progress","_t":1779825192983,"id":"1","progress":0.999,"total":314,"current":314}
+{"_e":"metro:bundling:progress","_t":1779825193084,"id":"1","progress":0.999,"total":318,"current":318}
+{"_e":"metro:bundling:done","_t":1779825193315,"id":"1","total":318,"ms":6226.3377}
+{"_e":"metro:client_log","_t":1779825193681,"level":"info","data":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"]}
+{"_e":"metro:client_log","_t":1779825193682,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"metro:client_log","_t":1779825217717,"level":"warn","data":["props.pointerEvents is deprecated. Use style.pointerEvents"]}
+{"_e":"root:init","_t":1779825818243,"format":"v0-jsonl","version":"56.1.12"}
+{"_e":"env:mode","_t":1779825818245,"nodeEnv":"development","babelEnv":"development","mode":"development"}
+{"_e":"env:load","_t":1779825818251,"mode":"development","files":[],"env":{}}
+{"_e":"devserver:start","_t":1779825818799,"mode":"development","web":true,"baseUrl":"","asyncRoutes":false,"routerRoot":"../..\\..\\app","serverComponents":false,"serverActions":false,"serverRendering":false,"apiRoutes":false,"exporting":false}
+{"_e":"metro:config","_t":1779825819568,"serverRoot":"../..\\..","projectRoot":"../..\\..","exporting":false,"flags":{"autolinkingModuleResolution":false,"serverActions":false,"serverComponents":false,"reactCompiler":false,"optimizeGraph":false,"treeshaking":false,"logbox":false}}
+{"_e":"metro:instantiate","_t":1779825829617,"atlas":false,"workers":10,"host":"::","port":8081}
+{"_e":"metro:bundling:started","_t":1779825857771,"id":"1","platform":"web","environment":null,"entry":"index.ts"}
+{"_e":"metro:bundling:progress","_t":1779825857772,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1779825857779,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1779825857882,"id":"1","progress":0.045417898414404724,"total":61,"current":13}
+{"_e":"metro:bundling:progress","_t":1779825857983,"id":"1","progress":0.36233386747101515,"total":103,"current":62}
+{"_e":"metro:bundling:progress","_t":1779825858094,"id":"1","progress":0.4499826395586591,"total":161,"current":108}
+{"_e":"metro:bundling:progress","_t":1779825858213,"id":"1","progress":0.6541955017301039,"total":204,"current":165}
+{"_e":"metro:bundling:progress","_t":1779825858313,"id":"1","progress":0.7133855018174315,"total":251,"current":212}
+{"_e":"metro:bundling:progress","_t":1779825858413,"id":"1","progress":0.8323600101197504,"total":308,"current":281}
+{"_e":"metro:bundling:progress","_t":1779825858513,"id":"1","progress":0.999,"total":318,"current":318}
+{"_e":"metro:bundling:done","_t":1779825858573,"id":"1","total":318,"ms":801.7509}
+{"_e":"metro:client_log","_t":1779825858887,"level":"info","data":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"]}
+{"_e":"metro:client_log","_t":1779825858889,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"metro:client_log","_t":1779825860371,"level":"warn","data":["props.pointerEvents is deprecated. Use style.pointerEvents"]}
+{"_e":"root:init","_t":1779826194551,"format":"v0-jsonl","version":"56.1.12"}
+{"_e":"env:mode","_t":1779826194553,"nodeEnv":"development","babelEnv":"development","mode":"development"}
+{"_e":"env:load","_t":1779826194559,"mode":"development","files":[],"env":{}}
+{"_e":"devserver:start","_t":1779826195116,"mode":"development","web":true,"baseUrl":"","asyncRoutes":false,"routerRoot":"../..\\..\\app","serverComponents":false,"serverActions":false,"serverRendering":false,"apiRoutes":false,"exporting":false}
+{"_e":"metro:config","_t":1779826195891,"serverRoot":"../..\\..","projectRoot":"../..\\..","exporting":false,"flags":{"autolinkingModuleResolution":false,"serverActions":false,"serverComponents":false,"reactCompiler":false,"optimizeGraph":false,"treeshaking":false,"logbox":false}}
+{"_e":"metro:instantiate","_t":1779826205999,"atlas":false,"workers":10,"host":"::","port":8081}
+{"_e":"metro:bundling:started","_t":1779826360563,"id":"1","platform":"web","environment":null,"entry":"index.ts"}
+{"_e":"metro:bundling:progress","_t":1779826360564,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1779826360571,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1779826360675,"id":"1","progress":0.054931640625,"total":64,"current":15}
+{"_e":"metro:bundling:progress","_t":1779826360778,"id":"1","progress":0.3686224489795918,"total":112,"current":68}
+{"_e":"metro:bundling:progress","_t":1779826360888,"id":"1","progress":0.4694787379972566,"total":162,"current":111}
+{"_e":"metro:bundling:progress","_t":1779826361004,"id":"1","progress":0.6101086606767159,"total":201,"current":157}
+{"_e":"metro:bundling:progress","_t":1779826361104,"id":"1","progress":0.7066713226774178,"total":251,"current":211}
+{"_e":"metro:bundling:progress","_t":1779826361204,"id":"1","progress":0.9552057477403882,"total":309,"current":302}
+{"_e":"metro:bundling:progress","_t":1779826361304,"id":"1","progress":0.9745233399079554,"total":312,"current":308}
+{"_e":"metro:bundling:progress","_t":1779826361414,"id":"1","progress":0.9936809004967152,"total":316,"current":315}
+{"_e":"metro:bundling:progress","_t":1779826362148,"id":"1","progress":0.999,"total":316,"current":316}
+{"_e":"metro:bundling:progress","_t":1779826362249,"id":"1","progress":0.999,"total":318,"current":318}
+{"_e":"metro:bundling:done","_t":1779826362312,"id":"1","total":318,"ms":1748.3646}
+{"_e":"metro:client_log","_t":1779826362591,"level":"info","data":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"]}
+{"_e":"metro:client_log","_t":1779826362592,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"metro:client_log","_t":1779826364442,"level":"warn","data":["props.pointerEvents is deprecated. Use style.pointerEvents"]}
+{"_e":"metro:client_log","_t":1779826368144,"level":"log","data":["Auth Error:","Anonymous sign-ins are disabled"]}
+{"_e":"metro:client_log","_t":1779826372771,"level":"log","data":["Auth Error:","Anonymous sign-ins are disabled"]}
+{"_e":"metro:client_log","_t":1779826386429,"level":"log","data":["Auth Error:","Password should be at least 6 characters."]}
+{"_e":"metro:client_log","_t":1779826404210,"level":"log","data":["Auth Error:","Unable to validate email address: invalid format"]}
+{"_e":"metro:client_log","_t":1779826420403,"level":"log","data":["Auth Error:","Email address \"1@gmail.com\" is invalid"]}
+{"_e":"metro:client_log","_t":1779826428829,"level":"log","data":["Auth Error:","Email address \"test1@gmail.com\" is invalid"]}
+{"_e":"root:init","_t":1779826906059,"format":"v0-jsonl","version":"56.1.12"}
+{"_e":"env:mode","_t":1779826906061,"nodeEnv":"development","babelEnv":"development","mode":"development"}
+{"_e":"env:load","_t":1779826906067,"mode":"development","files":[],"env":{}}
+{"_e":"devserver:start","_t":1779826906606,"mode":"development","web":true,"baseUrl":"","asyncRoutes":false,"routerRoot":"../..\\..\\app","serverComponents":false,"serverActions":false,"serverRendering":false,"apiRoutes":false,"exporting":false}
+{"_e":"metro:config","_t":1779826907374,"serverRoot":"../..\\..","projectRoot":"../..\\..","exporting":false,"flags":{"autolinkingModuleResolution":false,"serverActions":false,"serverComponents":false,"reactCompiler":false,"optimizeGraph":false,"treeshaking":false,"logbox":false}}
+{"_e":"metro:instantiate","_t":1779826917399,"atlas":false,"workers":10,"host":"::","port":8081}
+{"_e":"metro:bundling:started","_t":1779826969834,"id":"1","platform":"web","environment":null,"entry":"index.ts"}
+{"_e":"metro:bundling:progress","_t":1779826969835,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1779826969841,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1779826969941,"id":"1","progress":0.054931640625,"total":64,"current":15}
+{"_e":"metro:bundling:progress","_t":1779826970041,"id":"1","progress":0.37285613595426415,"total":113,"current":69}
+{"_e":"metro:bundling:progress","_t":1779826970142,"id":"1","progress":0.4831945270672218,"total":164,"current":114}
+{"_e":"metro:bundling:progress","_t":1779826970257,"id":"1","progress":0.6205277678889284,"total":212,"current":167}
+{"_e":"metro:bundling:progress","_t":1779826970357,"id":"1","progress":0.811277098737488,"total":282,"current":254}
+{"_e":"metro:bundling:progress","_t":1779826970473,"id":"1","progress":0.8635249842330002,"total":311,"current":289}
+{"_e":"metro:bundling:done","_t":1779826970567,"id":"1","total":311,"ms":732.216}
+{"_e":"metro:client_log","_t":1779826970823,"level":"info","data":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"]}
+{"_e":"metro:client_log","_t":1779826970824,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"metro:client_log","_t":1779826972991,"level":"warn","data":["props.pointerEvents is deprecated. Use style.pointerEvents"]}
+{"_e":"metro:client_log","_t":1779829658041,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779829658042,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779829659071,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779829659084,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"root:init","_t":1779829682820,"format":"v0-jsonl","version":"56.1.12"}
+{"_e":"env:mode","_t":1779829682822,"nodeEnv":"development","babelEnv":"development","mode":"development"}
+{"_e":"env:load","_t":1779829682829,"mode":"development","files":[],"env":{}}
+{"_e":"devserver:start","_t":1779829683430,"mode":"development","web":true,"baseUrl":"","asyncRoutes":false,"routerRoot":"../..\\..\\app","serverComponents":false,"serverActions":false,"serverRendering":false,"apiRoutes":false,"exporting":false}
+{"_e":"metro:config","_t":1779829684271,"serverRoot":"../..\\..","projectRoot":"../..\\..","exporting":false,"flags":{"autolinkingModuleResolution":false,"serverActions":false,"serverComponents":false,"reactCompiler":false,"optimizeGraph":false,"treeshaking":false,"logbox":false}}
+{"_e":"metro:instantiate","_t":1779829695239,"atlas":false,"workers":10,"host":"::","port":8081}
+{"_e":"metro:bundling:started","_t":1779829707436,"id":"1","platform":"web","environment":null,"entry":"index.ts"}
+{"_e":"metro:bundling:progress","_t":1779829707436,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1779829707446,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1779829707546,"id":"1","progress":0.056689342403628114,"total":63,"current":15}
+{"_e":"metro:bundling:progress","_t":1779829707646,"id":"1","progress":0.3643373102832563,"total":111,"current":67}
+{"_e":"metro:bundling:progress","_t":1779829707746,"id":"1","progress":0.4558399935088644,"total":157,"current":106}
+{"_e":"metro:bundling:progress","_t":1779829707847,"id":"1","progress":0.5625,"total":200,"current":150}
+{"_e":"metro:bundling:progress","_t":1779829707947,"id":"1","progress":0.69879150390625,"total":256,"current":214}
+{"_e":"metro:bundling:progress","_t":1779829708047,"id":"1","progress":0.8944671071531168,"total":295,"current":279}
+{"_e":"metro:bundling:progress","_t":1779829708147,"id":"1","progress":0.9937205806732329,"total":318,"current":317}
+{"_e":"metro:bundling:done","_t":1779829708228,"id":"1","total":318,"ms":792.4308}
+{"_e":"metro:client_log","_t":1779829708525,"level":"info","data":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"]}
+{"_e":"metro:client_log","_t":1779829708526,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"metro:client_log","_t":1779829708572,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779829708572,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779829709056,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779829709056,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:bundling:started","_t":1779829744269,"id":"3","platform":"web","environment":null,"entry":"index.ts"}
+{"_e":"metro:bundling:progress","_t":1779829744270,"id":"3","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1779829744329,"id":"3","total":1,"ms":59.0169}
+{"_e":"metro:client_log","_t":1779829744742,"level":"info","data":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"]}
+{"_e":"metro:client_log","_t":1779829744742,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"metro:bundling:started","_t":1779829755635,"id":"4","platform":"web","environment":null,"entry":"index.ts"}
+{"_e":"metro:bundling:progress","_t":1779829755635,"id":"4","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1779829755667,"id":"4","total":1,"ms":32.4111}
+{"_e":"metro:client_log","_t":1779829755949,"level":"info","data":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"]}
+{"_e":"metro:client_log","_t":1779829755950,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"metro:client_log","_t":1779829755952,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779829755955,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779829756286,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779829756396,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:bundling:started","_t":1779829778375,"id":"6","platform":"web","environment":null,"entry":"index.ts"}
+{"_e":"metro:bundling:progress","_t":1779829778375,"id":"6","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1779829778407,"id":"6","total":1,"ms":32.2207}
+{"_e":"metro:client_log","_t":1779829778668,"level":"info","data":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"]}
+{"_e":"metro:client_log","_t":1779829778669,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"metro:client_log","_t":1779829778673,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779829778738,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779829778806,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779829778906,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:bundling:started","_t":1779829780753,"id":"8","platform":"web","environment":null,"entry":"index.ts"}
+{"_e":"metro:bundling:progress","_t":1779829780753,"id":"8","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1779829780786,"id":"8","total":1,"ms":33.0117}
+{"_e":"metro:client_log","_t":1779829781051,"level":"info","data":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"]}
+{"_e":"metro:client_log","_t":1779829781052,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"metro:client_log","_t":1779829781053,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779829781063,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779829781179,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779829781280,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779829787689,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779829787818,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"root:init","_t":1779830209988,"format":"v0-jsonl","version":"56.1.12"}
+{"_e":"env:mode","_t":1779830209990,"nodeEnv":"development","babelEnv":"development","mode":"development"}
+{"_e":"env:load","_t":1779830209997,"mode":"development","files":[],"env":{}}
+{"_e":"devserver:start","_t":1779830210602,"mode":"development","web":true,"baseUrl":"","asyncRoutes":false,"routerRoot":"../..\\..\\app","serverComponents":false,"serverActions":false,"serverRendering":false,"apiRoutes":false,"exporting":false}
+{"_e":"metro:config","_t":1779830211438,"serverRoot":"../..\\..","projectRoot":"../..\\..","exporting":false,"flags":{"autolinkingModuleResolution":false,"serverActions":false,"serverComponents":false,"reactCompiler":false,"optimizeGraph":false,"treeshaking":false,"logbox":false}}
+{"_e":"metro:instantiate","_t":1779830222207,"atlas":false,"workers":10,"host":"::","port":8081}
+{"_e":"metro:bundling:started","_t":1779830847954,"id":"1","platform":"web","environment":null,"entry":"index.ts"}
+{"_e":"metro:bundling:progress","_t":1779830847955,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1779830847962,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1779830848061,"id":"1","progress":0.43654336734693877,"total":56,"current":37}
+{"_e":"metro:bundling:progress","_t":1779830848163,"id":"1","progress":0.6679918639053254,"total":104,"current":85}
+{"_e":"metro:bundling:progress","_t":1779830848340,"id":"1","progress":0.8158168574401664,"total":155,"current":140}
+{"_e":"metro:bundling:progress","_t":1779830848442,"id":"1","progress":0.9888580256546299,"total":179,"current":178}
+{"_e":"metro:bundling:progress","_t":1779830849558,"id":"1","progress":0.999,"total":179,"current":179}
+{"_e":"metro:bundling:progress","_t":1779830849658,"id":"1","progress":0.999,"total":186,"current":179}
+{"_e":"metro:bundling:progress","_t":1779830849760,"id":"1","progress":0.999,"total":222,"current":204}
+{"_e":"metro:bundling:progress","_t":1779830849864,"id":"1","progress":0.999,"total":260,"current":238}
+{"_e":"metro:bundling:progress","_t":1779830849964,"id":"1","progress":0.999,"total":294,"current":285}
+{"_e":"metro:bundling:done","_t":1779830850104,"id":"1","total":294,"ms":2149.7}
+{"_e":"metro:client_log","_t":1779830850406,"level":"info","data":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"]}
+{"_e":"metro:client_log","_t":1779830850407,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"metro:client_log","_t":1779830850469,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779830850469,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779830850848,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779830850848,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779830912163,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779830912428,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779830938905,"level":"warn","data":["props.pointerEvents is deprecated. Use style.pointerEvents"]}
+{"_e":"metro:client_log","_t":1779830939155,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779830939289,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779830967236,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779830967357,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779831645322,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779831645693,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779831959852,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779831960546,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:bundling:started","_t":1779831965375,"id":"3","platform":"web","environment":null,"entry":"index.ts"}
+{"_e":"metro:bundling:progress","_t":1779831965375,"id":"3","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1779831965440,"id":"3","total":1,"ms":65.0583}
+{"_e":"metro:client_log","_t":1779831965755,"level":"info","data":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"]}
+{"_e":"metro:client_log","_t":1779831965755,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"metro:client_log","_t":1779831965756,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779831965843,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779831965844,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779831965924,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779831966052,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779831966121,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779831976176,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779831976177,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779831976451,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779831976558,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779831985636,"level":"warn","data":["props.pointerEvents is deprecated. Use style.pointerEvents"]}
+{"_e":"metro:client_log","_t":1779831999269,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779831999269,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779831999386,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779831999494,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779832020573,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779832020574,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779832020693,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779832020796,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779832040808,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779832040809,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779832040941,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779832041093,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779832042562,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779832042563,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779832042678,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779832042777,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779832057161,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779832057161,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779832057291,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779832057389,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779832924440,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779832924982,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779832926538,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779832926658,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779832929338,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779832929448,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"root:init","_t":1779833125335,"format":"v0-jsonl","version":"56.1.12"}
+{"_e":"env:mode","_t":1779833125337,"nodeEnv":"development","babelEnv":"development","mode":"development"}
+{"_e":"env:load","_t":1779833125343,"mode":"development","files":[],"env":{}}
+{"_e":"devserver:start","_t":1779833125909,"mode":"development","web":true,"baseUrl":"","asyncRoutes":false,"routerRoot":"../..\\..\\app","serverComponents":false,"serverActions":false,"serverRendering":false,"apiRoutes":false,"exporting":false}
+{"_e":"metro:config","_t":1779833126706,"serverRoot":"../..\\..","projectRoot":"../..\\..","exporting":false,"flags":{"autolinkingModuleResolution":false,"serverActions":false,"serverComponents":false,"reactCompiler":false,"optimizeGraph":false,"treeshaking":false,"logbox":false}}
+{"_e":"metro:instantiate","_t":1779833136900,"atlas":false,"workers":10,"host":"::","port":8081}
+{"_e":"metro:bundling:started","_t":1779833217853,"id":"1","platform":"web","environment":null,"entry":"index.ts"}
+{"_e":"metro:bundling:progress","_t":1779833217854,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1779833217860,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1779833217966,"id":"1","progress":0.054931640625,"total":64,"current":15}
+{"_e":"metro:bundling:progress","_t":1779833218066,"id":"1","progress":0.3621270263920433,"total":113,"current":68}
+{"_e":"metro:bundling:progress","_t":1779833218167,"id":"1","progress":0.4524163832199547,"total":168,"current":113}
+{"_e":"metro:bundling:progress","_t":1779833218272,"id":"1","progress":0.6324036281179137,"total":210,"current":167}
+{"_e":"metro:bundling:progress","_t":1779833218372,"id":"1","progress":0.8145551225742548,"total":277,"current":250}
+{"_e":"metro:bundling:progress","_t":1779833218489,"id":"1","progress":0.9808004466455061,"total":311,"current":308}
+{"_e":"metro:bundling:done","_t":1779833218577,"id":"1","total":311,"ms":723.5402}
+{"_e":"metro:client_log","_t":1779833218839,"level":"info","data":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"]}
+{"_e":"metro:client_log","_t":1779833218840,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"metro:client_log","_t":1779833218840,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779833218840,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779833218982,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779833219055,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779833235705,"level":"warn","data":["props.pointerEvents is deprecated. Use style.pointerEvents"]}
+{"_e":"metro:client_log","_t":1779833235936,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779833236069,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779833250887,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779833251127,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779833299547,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779833299717,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779833334866,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779833335032,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779833386453,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779833389754,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779833390205,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779833390334,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779833395450,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779833395626,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779833513114,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779833513600,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"root:init","_t":1779898739771,"format":"v0-jsonl","version":"56.1.12"}
+{"_e":"env:mode","_t":1779898739773,"nodeEnv":"development","babelEnv":"development","mode":"development"}
+{"_e":"env:load","_t":1779898739780,"mode":"development","files":[],"env":{}}
+{"_e":"devserver:start","_t":1779898740435,"mode":"development","web":true,"baseUrl":"","asyncRoutes":false,"routerRoot":"../..\\..\\app","serverComponents":false,"serverActions":false,"serverRendering":false,"apiRoutes":false,"exporting":false}
+{"_e":"metro:config","_t":1779898741496,"serverRoot":"../..\\..","projectRoot":"../..\\..","exporting":false,"flags":{"autolinkingModuleResolution":false,"serverActions":false,"serverComponents":false,"reactCompiler":false,"optimizeGraph":false,"treeshaking":false,"logbox":false}}
+{"_e":"metro:instantiate","_t":1779898753231,"atlas":false,"workers":10,"host":"::","port":8081}
+{"_e":"metro:bundling:started","_t":1779898773323,"id":"1","platform":"web","environment":null,"entry":"index.ts"}
+{"_e":"metro:bundling:progress","_t":1779898773325,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1779898773337,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1779898773438,"id":"1","progress":0.05039566847147022,"total":49,"current":11}
+{"_e":"metro:bundling:progress","_t":1779898773537,"id":"1","progress":0.29752066115702475,"total":88,"current":48}
+{"_e":"metro:bundling:progress","_t":1779898773637,"id":"1","progress":0.399424,"total":125,"current":79}
+{"_e":"metro:bundling:progress","_t":1779898773737,"id":"1","progress":0.4792899408284023,"total":182,"current":126}
+{"_e":"metro:bundling:progress","_t":1779898773841,"id":"1","progress":0.6137314447110791,"total":217,"current":170}
+{"_e":"metro:bundling:progress","_t":1779898773941,"id":"1","progress":0.8002115702479339,"total":275,"current":246}
+{"_e":"metro:bundling:progress","_t":1779898774041,"id":"1","progress":0.8811758584807492,"total":310,"current":291}
+{"_e":"metro:bundling:progress","_t":1779898774141,"id":"1","progress":0.9937008030729731,"total":317,"current":316}
+{"_e":"metro:bundling:progress","_t":1779898775396,"id":"1","progress":0.999,"total":317,"current":317}
+{"_e":"metro:bundling:progress","_t":1779898775497,"id":"1","progress":0.999,"total":318,"current":318}
+{"_e":"metro:bundling:done","_t":1779898775554,"id":"1","total":318,"ms":2230.6526}
+{"_e":"metro:client_log","_t":1779898775836,"level":"info","data":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"]}
+{"_e":"metro:client_log","_t":1779898775838,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"metro:client_log","_t":1779898776684,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779898776689,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779898776689,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779898777054,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779898777159,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779898777357,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779898818996,"level":"warn","data":["props.pointerEvents is deprecated. Use style.pointerEvents"]}
+{"_e":"metro:client_log","_t":1779898819236,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779898819485,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779898856472,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779898856603,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779898877320,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779898877449,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779898964570,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779898965130,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779899914040,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779899914511,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779899986008,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779899986170,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779900027315,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779900027451,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779900054272,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779900054532,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779900059276,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779900059392,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779900337764,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779900337919,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779901239589,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779901240143,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779901241129,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779901241402,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779901249927,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779901250086,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779901260873,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779901261005,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779901267730,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779901267859,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779901287452,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779901287824,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779905769042,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779905769628,"level":"error","data":["Database Error:","Cannot coerce the result to a single JSON object"]}
+{"_e":"metro:client_log","_t":1779905772318,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779905772508,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:bundling:started","_t":1779905778634,"id":"3","platform":"web","environment":null,"entry":"index.ts"}
+{"_e":"metro:bundling:progress","_t":1779905778634,"id":"3","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1779905778688,"id":"3","total":1,"ms":53.0129}
+{"_e":"metro:client_log","_t":1779905778957,"level":"info","data":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"]}
+{"_e":"metro:client_log","_t":1779905779009,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"metro:client_log","_t":1779905785349,"level":"warn","data":["props.pointerEvents is deprecated. Use style.pointerEvents"]}
+{"_e":"metro:client_log","_t":1779905785539,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779905785673,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779905800925,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779905801057,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779905816897,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779905817031,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779905825037,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779905825168,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779905841043,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779905841184,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779905868726,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779905868892,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779905873723,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779905873855,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779905882865,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779905883055,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779905896828,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779905896964,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779905906092,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779905906378,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779905921386,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779905921519,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779905951777,"level":"log","data":["Attempting to fetch role for User ID:","51c99e56-0f4b-403f-bfee-45d04cf90d87"]}
+{"_e":"metro:client_log","_t":1779905952041,"level":"error","data":["Database Error:","Cannot coerce the result to a single JSON object"]}
+{"_e":"metro:bundling:started","_t":1779905960928,"id":"5","platform":"web","environment":null,"entry":"index.ts"}
+{"_e":"metro:bundling:progress","_t":1779905960929,"id":"5","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1779905960956,"id":"5","total":1,"ms":27.1021}
+{"_e":"metro:client_log","_t":1779905961189,"level":"info","data":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"]}
+{"_e":"metro:client_log","_t":1779905961190,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"metro:client_log","_t":1779905961194,"level":"log","data":["Attempting to fetch role for User ID:","51c99e56-0f4b-403f-bfee-45d04cf90d87"]}
+{"_e":"metro:client_log","_t":1779905961195,"level":"log","data":["Attempting to fetch role for User ID:","51c99e56-0f4b-403f-bfee-45d04cf90d87"]}
+{"_e":"metro:client_log","_t":1779905961335,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779905961384,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779905976033,"level":"warn","data":["props.pointerEvents is deprecated. Use style.pointerEvents"]}
+{"_e":"metro:client_log","_t":1779905976232,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779905976394,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:bundling:started","_t":1779905985656,"id":"7","platform":"web","environment":null,"entry":"index.ts"}
+{"_e":"metro:bundling:progress","_t":1779905985656,"id":"7","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1779905985681,"id":"7","total":1,"ms":25.331}
+{"_e":"metro:client_log","_t":1779905985933,"level":"info","data":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"]}
+{"_e":"metro:client_log","_t":1779905985933,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"metro:client_log","_t":1779905985934,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779905985937,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779905986049,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779905986149,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779906006986,"level":"warn","data":["props.pointerEvents is deprecated. Use style.pointerEvents"]}
+{"_e":"metro:client_log","_t":1779906007181,"level":"log","data":["Attempting to fetch role for User ID:","51c99e56-0f4b-403f-bfee-45d04cf90d87"]}
+{"_e":"metro:client_log","_t":1779906007314,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779906012745,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779906012874,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:bundling:started","_t":1779906019726,"id":"8","platform":"web","environment":null,"entry":"index.ts"}
+{"_e":"metro:bundling:progress","_t":1779906019728,"id":"8","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1779906019755,"id":"8","total":1,"ms":28.7021}
+{"_e":"metro:client_log","_t":1779906019998,"level":"info","data":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"]}
+{"_e":"metro:client_log","_t":1779906019998,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"metro:client_log","_t":1779906020000,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779906020007,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779906020120,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779906020222,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779906031563,"level":"warn","data":["props.pointerEvents is deprecated. Use style.pointerEvents"]}
+{"_e":"metro:client_log","_t":1779906031751,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779906031881,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779906042826,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779906042959,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779906049632,"level":"log","data":["Attempting to fetch role for User ID:","51c99e56-0f4b-403f-bfee-45d04cf90d87"]}
+{"_e":"metro:client_log","_t":1779906049758,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779906055732,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779906055864,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779906201952,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779906202089,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779906216083,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779906216202,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779906223958,"level":"log","data":["Attempting to fetch role for User ID:","51c99e56-0f4b-403f-bfee-45d04cf90d87"]}
+{"_e":"metro:client_log","_t":1779906224087,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779906321730,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779906322072,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:bundling:started","_t":1779907175800,"id":"a","platform":"web","environment":null,"entry":"index.ts"}
+{"_e":"metro:bundling:progress","_t":1779907175800,"id":"a","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1779907175829,"id":"a","total":1,"ms":28.6922}
+{"_e":"metro:client_log","_t":1779907176072,"level":"info","data":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"]}
+{"_e":"metro:client_log","_t":1779907176072,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"metro:client_log","_t":1779907180095,"level":"warn","data":["props.pointerEvents is deprecated. Use style.pointerEvents"]}
+{"_e":"metro:client_log","_t":1779907180292,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779907180476,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779907200095,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779907200221,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:bundling:started","_t":1779907209961,"id":"c","platform":"web","environment":null,"entry":"index.ts"}
+{"_e":"metro:bundling:progress","_t":1779907209961,"id":"c","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1779907209993,"id":"c","total":1,"ms":31.4212}
+{"_e":"metro:client_log","_t":1779907210232,"level":"info","data":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"]}
+{"_e":"metro:client_log","_t":1779907210232,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"metro:client_log","_t":1779907210234,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779907210242,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779907210360,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779907210455,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779907218930,"level":"warn","data":["props.pointerEvents is deprecated. Use style.pointerEvents"]}
+{"_e":"metro:client_log","_t":1779907219122,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779907219255,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779907233428,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779907233567,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779907246516,"level":"log","data":["Attempting to fetch role for User ID:","51c99e56-0f4b-403f-bfee-45d04cf90d87"]}
+{"_e":"metro:client_log","_t":1779907246776,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779907251692,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779907251832,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779907260259,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779907260385,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779907268496,"level":"log","data":["Attempting to fetch role for User ID:","51c99e56-0f4b-403f-bfee-45d04cf90d87"]}
+{"_e":"metro:client_log","_t":1779907268620,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779907759397,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779907759692,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779907776909,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779907777044,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779907816029,"level":"log","data":["Attempting to fetch role for User ID:","51c99e56-0f4b-403f-bfee-45d04cf90d87"]}
+{"_e":"metro:client_log","_t":1779907816188,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779907826952,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779907827084,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779907844880,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779907845272,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:bundling:started","_t":1779907853180,"id":"e","platform":"web","environment":null,"entry":"index.ts"}
+{"_e":"metro:bundling:progress","_t":1779907853180,"id":"e","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1779907853209,"id":"e","total":1,"ms":29.4854}
+{"_e":"metro:client_log","_t":1779907853443,"level":"info","data":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"]}
+{"_e":"metro:client_log","_t":1779907853443,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"metro:client_log","_t":1779907853445,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779907853448,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779907853563,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779907853667,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779907856228,"level":"warn","data":["props.pointerEvents is deprecated. Use style.pointerEvents"]}
+{"_e":"metro:client_log","_t":1779907856398,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779907856514,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779907874665,"level":"log","data":["Attempting to fetch role for User ID:","51c99e56-0f4b-403f-bfee-45d04cf90d87"]}
+{"_e":"metro:client_log","_t":1779907874797,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"root:init","_t":1779910709567,"format":"v0-jsonl","version":"56.1.12"}
+{"_e":"env:mode","_t":1779910709571,"nodeEnv":"development","babelEnv":"development","mode":"development"}
+{"_e":"env:load","_t":1779910709580,"mode":"development","files":[],"env":{}}
+{"_e":"devserver:start","_t":1779910710279,"mode":"development","web":true,"baseUrl":"","asyncRoutes":false,"routerRoot":"../..\\..\\app","serverComponents":false,"serverActions":false,"serverRendering":false,"apiRoutes":false,"exporting":false}
+{"_e":"metro:config","_t":1779910711260,"serverRoot":"../..\\..","projectRoot":"../..\\..","exporting":false,"flags":{"autolinkingModuleResolution":false,"serverActions":false,"serverComponents":false,"reactCompiler":false,"optimizeGraph":false,"treeshaking":false,"logbox":false}}
+{"_e":"metro:instantiate","_t":1779910722239,"atlas":false,"workers":10,"host":"::","port":8081}
+{"_e":"root:init","_t":1779917888834,"format":"v0-jsonl","version":"56.1.12"}
+{"_e":"env:mode","_t":1779917888836,"nodeEnv":"development","babelEnv":"development","mode":"development"}
+{"_e":"env:load","_t":1779917888842,"mode":"development","files":[],"env":{}}
+{"_e":"devserver:start","_t":1779917889498,"mode":"development","web":true,"baseUrl":"","asyncRoutes":false,"routerRoot":"../..\\..\\app","serverComponents":false,"serverActions":false,"serverRendering":false,"apiRoutes":false,"exporting":false}
+{"_e":"metro:config","_t":1779917890633,"serverRoot":"../..\\..","projectRoot":"../..\\..","exporting":false,"flags":{"autolinkingModuleResolution":false,"serverActions":false,"serverComponents":false,"reactCompiler":false,"optimizeGraph":false,"treeshaking":false,"logbox":false}}
+{"_e":"metro:instantiate","_t":1779917900999,"atlas":false,"workers":10,"host":"::","port":8081}
+{"_e":"metro:bundling:started","_t":1779917901655,"id":"1","platform":"web","environment":null,"entry":"index.ts"}
+{"_e":"metro:bundling:progress","_t":1779917901656,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1779917901673,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1779917901779,"id":"1","progress":0.09182736455463729,"total":66,"current":20}
+{"_e":"metro:bundling:progress","_t":1779917901887,"id":"1","progress":0.390625,"total":112,"current":70}
+{"_e":"metro:bundling:progress","_t":1779917901989,"id":"1","progress":0.6379890035995412,"total":159,"current":127}
+{"_e":"metro:bundling:progress","_t":1779917902159,"id":"1","progress":0.9157299512373801,"total":209,"current":200}
+{"_e":"metro:bundling:progress","_t":1779917902260,"id":"1","progress":0.991360731620472,"total":231,"current":230}
+{"_e":"metro:bundling:progress","_t":1779917903356,"id":"1","progress":0.999,"total":231,"current":231}
+{"_e":"metro:bundling:progress","_t":1779917903455,"id":"1","progress":0.999,"total":234,"current":232}
+{"_e":"metro:bundling:progress","_t":1779917903555,"id":"1","progress":0.999,"total":281,"current":259}
+{"_e":"metro:bundling:done","_t":1779917903676,"id":"1","total":281,"ms":2020.0717}
+{"_e":"metro:client_log","_t":1779917903912,"level":"info","data":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"]}
+{"_e":"metro:bundling:started","_t":1779917912006,"id":"3","platform":"web","environment":null,"entry":"index.ts"}
+{"_e":"metro:bundling:progress","_t":1779917912006,"id":"3","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1779917912034,"id":"3","total":1,"ms":28.4605}
+{"_e":"metro:client_log","_t":1779917912249,"level":"info","data":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"]}
+{"_e":"metro:bundling:started","_t":1779917928037,"id":"4","platform":"web","environment":null,"entry":"index.ts"}
+{"_e":"metro:bundling:progress","_t":1779917928037,"id":"4","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1779917928087,"id":"4","total":1,"ms":50.1889}
+{"_e":"metro:client_log","_t":1779917928399,"level":"info","data":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"]}
+{"_e":"root:init","_t":1779917941531,"format":"v0-jsonl","version":"56.1.12"}
+{"_e":"env:mode","_t":1779917941533,"nodeEnv":"development","babelEnv":"development","mode":"development"}
+{"_e":"env:load","_t":1779917941539,"mode":"development","files":[],"env":{}}
+{"_e":"devserver:start","_t":1779917942097,"mode":"development","web":true,"baseUrl":"","asyncRoutes":false,"routerRoot":"../..\\..\\app","serverComponents":false,"serverActions":false,"serverRendering":false,"apiRoutes":false,"exporting":false}
+{"_e":"metro:config","_t":1779917942889,"serverRoot":"../..\\..","projectRoot":"../..\\..","exporting":false,"flags":{"autolinkingModuleResolution":false,"serverActions":false,"serverComponents":false,"reactCompiler":false,"optimizeGraph":false,"treeshaking":false,"logbox":false}}
+{"_e":"metro:instantiate","_t":1779917953068,"atlas":false,"workers":10,"host":"::","port":8081}
+{"_e":"metro:bundling:started","_t":1779917957023,"id":"1","platform":"web","environment":null,"entry":"index.ts"}
+{"_e":"metro:bundling:progress","_t":1779917957024,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1779917957030,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1779917957131,"id":"1","progress":0.06805293005671077,"total":69,"current":18}
+{"_e":"metro:bundling:progress","_t":1779917957232,"id":"1","progress":0.36203677104280374,"total":118,"current":71}
+{"_e":"metro:bundling:progress","_t":1779917957332,"id":"1","progress":0.6223456790123456,"total":180,"current":142}
+{"_e":"metro:bundling:progress","_t":1779917957433,"id":"1","progress":0.7409069059445602,"total":237,"current":204}
+{"_e":"metro:bundling:progress","_t":1779917957569,"id":"1","progress":0.9792751736111112,"total":288,"current":285}
+{"_e":"metro:bundling:done","_t":1779917957650,"id":"1","total":288,"ms":626.3207}
+{"_e":"metro:client_log","_t":1779917957883,"level":"info","data":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"]}
+{"_e":"metro:bundling:started","_t":1779917960107,"id":"3","platform":"web","environment":null,"entry":"index.ts"}
+{"_e":"metro:bundling:progress","_t":1779917960108,"id":"3","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1779917960135,"id":"3","total":1,"ms":28.0375}
+{"_e":"metro:client_log","_t":1779917960358,"level":"info","data":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"]}
+{"_e":"metro:bundling:started","_t":1779917961337,"id":"4","platform":"web","environment":null,"entry":"index.ts"}
+{"_e":"metro:bundling:progress","_t":1779917961337,"id":"4","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1779917961372,"id":"4","total":1,"ms":34.7977}
+{"_e":"metro:client_log","_t":1779917961592,"level":"info","data":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"]}
+{"_e":"metro:bundling:started","_t":1779917962103,"id":"5","platform":"web","environment":null,"entry":"index.ts"}
+{"_e":"metro:bundling:progress","_t":1779917962104,"id":"5","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1779917962131,"id":"5","total":1,"ms":27.1689}
+{"_e":"metro:client_log","_t":1779917962338,"level":"info","data":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"]}
+{"_e":"metro:bundling:started","_t":1779917962536,"id":"6","platform":"web","environment":null,"entry":"index.ts"}
+{"_e":"metro:bundling:progress","_t":1779917962536,"id":"6","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1779917962563,"id":"6","total":1,"ms":26.9704}
+{"_e":"metro:bundling:started","_t":1779917962755,"id":"7","platform":"web","environment":null,"entry":"index.ts"}
+{"_e":"metro:bundling:progress","_t":1779917962755,"id":"7","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1779917962783,"id":"7","total":1,"ms":28.0065}
+{"_e":"metro:bundling:started","_t":1779917963054,"id":"8","platform":"web","environment":null,"entry":"index.ts"}
+{"_e":"metro:bundling:progress","_t":1779917963054,"id":"8","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1779917963080,"id":"8","total":1,"ms":26.7272}
+{"_e":"metro:client_log","_t":1779917963291,"level":"info","data":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"]}
+{"_e":"metro:bundling:started","_t":1779917963351,"id":"9","platform":"web","environment":null,"entry":"index.ts"}
+{"_e":"metro:bundling:progress","_t":1779917963351,"id":"9","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1779917963378,"id":"9","total":1,"ms":26.8869}
+{"_e":"metro:client_log","_t":1779917963593,"level":"info","data":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"]}
+{"_e":"metro:bundling:started","_t":1779917964034,"id":"a","platform":"web","environment":null,"entry":"index.ts"}
+{"_e":"metro:bundling:progress","_t":1779917964034,"id":"a","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1779917964063,"id":"a","total":1,"ms":28.9861}
+{"_e":"metro:client_log","_t":1779917964283,"level":"info","data":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"]}
+{"_e":"metro:bundling:started","_t":1779918132995,"id":"b","platform":"web","environment":null,"entry":"index.ts"}
+{"_e":"metro:bundling:progress","_t":1779918132995,"id":"b","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1779918133024,"id":"b","total":1,"ms":29.0018}
+{"_e":"metro:client_log","_t":1779918133286,"level":"info","data":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"]}
+{"_e":"metro:client_log","_t":1779918133286,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"metro:client_log","_t":1779918142105,"level":"warn","data":["props.pointerEvents is deprecated. Use style.pointerEvents"]}
+{"_e":"metro:client_log","_t":1779918142880,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779918143508,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"root:init","_t":1779918243554,"format":"v0-jsonl","version":"56.1.12"}
+{"_e":"env:mode","_t":1779918243556,"nodeEnv":"development","babelEnv":"development","mode":"development"}
+{"_e":"env:load","_t":1779918243563,"mode":"development","files":[],"env":{}}
+{"_e":"devserver:start","_t":1779918244122,"mode":"development","web":true,"baseUrl":"","asyncRoutes":false,"routerRoot":"../..\\..\\app","serverComponents":false,"serverActions":false,"serverRendering":false,"apiRoutes":false,"exporting":false}
+{"_e":"metro:config","_t":1779918244891,"serverRoot":"../..\\..","projectRoot":"../..\\..","exporting":false,"flags":{"autolinkingModuleResolution":false,"serverActions":false,"serverComponents":false,"reactCompiler":false,"optimizeGraph":false,"treeshaking":false,"logbox":false}}
+{"_e":"metro:instantiate","_t":1779918256416,"atlas":false,"workers":10,"host":"::","port":8081}
+{"_e":"metro:bundling:started","_t":1779918256980,"id":"1","platform":"web","environment":null,"entry":"index.ts"}
+{"_e":"metro:bundling:progress","_t":1779918256981,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1779918256989,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1779918257096,"id":"1","progress":0.045417898414404724,"total":61,"current":13}
+{"_e":"metro:bundling:progress","_t":1779918257197,"id":"1","progress":0.36,"total":105,"current":63}
+{"_e":"metro:bundling:progress","_t":1779918257297,"id":"1","progress":0.5483496234577792,"total":158,"current":117}
+{"_e":"metro:bundling:progress","_t":1779918257397,"id":"1","progress":0.6736383054467783,"total":212,"current":174}
+{"_e":"metro:bundling:progress","_t":1779918257498,"id":"1","progress":0.8824609733700643,"total":264,"current":248}
+{"_e":"metro:bundling:progress","_t":1779918257598,"id":"1","progress":0.9253241699692293,"total":289,"current":278}
+{"_e":"metro:bundling:done","_t":1779918257689,"id":"1","total":289,"ms":708.7319}
+{"_e":"metro:client_log","_t":1779918257951,"level":"info","data":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"]}
+{"_e":"metro:client_log","_t":1779918257952,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"metro:client_log","_t":1779918257956,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779918258080,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779918258214,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779918258270,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779918261410,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779918261612,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779918262200,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779918262357,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779918651062,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779918651450,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779918675594,"level":"warn","data":["props.pointerEvents is deprecated. Use style.pointerEvents"]}
+{"_e":"metro:client_log","_t":1779918675803,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779918675982,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779921474034,"level":"log","data":["Attempting to fetch role for User ID:","2ee62e84-5745-4794-9f51-fec1759a7b3d"]}
+{"_e":"metro:client_log","_t":1779921474790,"level":"log","data":["Successfully fetched role:","PASSENGER"]}
+{"_e":"metro:client_log","_t":1779921478703,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779921479113,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779921502680,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779921502824,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779921509812,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779921509956,"level":"log","data":["Successfully fetched role:","DRIVER"]}
+{"_e":"metro:client_log","_t":1779921727861,"level":"log","data":["Attempting to fetch role for User ID:","f2774a83-f858-43a4-8edc-8d7251bdbe37"]}
+{"_e":"metro:client_log","_t":1779921728106,"level":"log","data":["Successfully fetched role:","DRIVER"]}
