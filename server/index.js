@@ -1,5 +1,9 @@
 require("dotenv").config();
 
+// Force Node to use your local timezone instead of Vercel's default UTC
+if (process.env.TIMEZONE) {
+  process.env.TZ = process.env.TIMEZONE;
+}
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
