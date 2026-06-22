@@ -16,7 +16,7 @@ async function scheduleFromConfig() {
   }
 
   await db.getDb();
-  const config = db.getNotificationConfig();
+  const config = await db.getNotificationConfig(); // <-- ADDED AWAIT
   if (!config || !config.enabled) {
     console.log("[scheduler] Notifications disabled — cron not started");
     return;
@@ -38,9 +38,9 @@ async function scheduleFromConfig() {
 
 async function sendWeeklyNotifications() {
   await db.getDb();
-  const config = db.getNotificationConfig();
-  const sunday = db.getThisSundayDate();
-  const riders = db.getRiders(true);
+  const config = await db.getNotificationConfig(); // <-- ADDED AWAIT
+  const sunday = db.getThisSundayDate(); // Math only, no await needed
+  const riders = await db.getRiders(true); // <-- ADDED AWAIT
 
   if (riders.length === 0) {
     console.log("[scheduler] No active riders — skipping.");
@@ -66,7 +66,7 @@ async function sendWeeklyNotifications() {
     }
   }
 
-  db.logNotification(sunday, riders.length);
+  await db.logNotification(sunday, riders.length); // <-- ADDED AWAIT
   return {
     sent: results.filter((r) => r.status === "sent").length,
     sunday,
