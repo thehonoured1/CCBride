@@ -489,6 +489,8 @@ function RiderPortal({ user, onLogout }) {
   const [loading, setLoading] = useState(true);
   const [destination, setDestination] = useState("CCB");
   const [notes, setNotes] = useState("");
+  const [rideDate, setRideDate] = useState("");
+  const [rideTime, setRideTime] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -510,17 +512,29 @@ function RiderPortal({ user, onLogout }) {
   }, []);
 
   async function submitRequest() {
+    if (!rideDate) {
+      setError("Please select a ride date");
+      return;
+    }
+    if (!rideTime) {
+      setError("Please select a ride time");
+      return;
+    }
     setSubmitting(true);
     setError("");
     setSuccess("");
     try {
       await api.createRiderRequest({
         destination: destination || "CCB",
+        rideDate,
+        rideTime,
         notes,
       });
       setSuccess("Your ride request has been submitted!");
       setNotes("");
       setDestination("CCB");
+      setRideDate("");
+      setRideTime("");
       load();
     } catch (e) {
       setError(e.message);
@@ -776,6 +790,24 @@ function RiderPortal({ user, onLogout }) {
                       placeholder="e.g. leaving early"
                     />
                   </div>
+                  <div className="field" style={{ margin: 0 }}>
+                    <label>Ride Date *</label>
+                    <input
+                      type="date"
+                      value={rideDate}
+                      onChange={(e) => setRideDate(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="field" style={{ margin: 0 }}>
+                    <label>Ride Time *</label>
+                    <input
+                      type="time"
+                      value={rideTime}
+                      onChange={(e) => setRideTime(e.target.value)}
+                      required
+                    />
+                  </div>
                 </div>
 
                 <button
@@ -783,7 +815,7 @@ function RiderPortal({ user, onLogout }) {
                   onClick={submitRequest}
                   disabled={submitting}
                 >
-                  {submitting ? "Submitting…" : "🚗 Request a ride this Sunday"}
+                  {submitting ? "Submitting…" : "🚗 Request a ride"}
                 </button>
               </div>
             )}
