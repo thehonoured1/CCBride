@@ -2375,6 +2375,7 @@ function NotifyModal({ onClose, onDone, toast }) {
 function AdminsTab({ toast, currentUser }) {
   const [admins, setAdmins] = useState([]);
   const [loading, setLoading] = useState(true);
+  const superAdminsCount = admins.filter((a) => a.is_super_admin === 1).length;
   const [showAdd, setShowAdd] = useState(false);
   const [form, setForm] = useState({ name: "", email: "" });
   const [saving, setSaving] = useState(false);
@@ -2437,6 +2438,31 @@ function AdminsTab({ toast, currentUser }) {
       await api.deleteAdmin(id);
       setAdmins((as) => as.filter((a) => a.id !== id));
       toast(`${name} removed`);
+    } catch (e) {
+      toast(e.message, "error");
+    }
+  }
+
+  async function toggleRole(id, name, isCurrentlySuper) {
+    const action = isCurrentlySuper ? "demote" : "promote";
+    if (
+      !window.confirm(
+        `Are you sure you want to ${action} ${name} ${
+          isCurrentlySuper ? "to a regular Admin" : "to a Super Admin"
+        }?`
+      )
+    )
+      return;
+    try {
+      const { admin } = await api.updateAdminRole(id, !isCurrentlySuper);
+      setAdmins((as) =>
+        as.map((a) => (a.id === id ? { ...a, is_super_admin: admin.is_super_admin } : a))
+      );
+      toast(
+        `${name} is now ${
+          admin.is_super_admin === 1 ? "a Super Admin" : "a regular Admin"
+        }`
+      );
     } catch (e) {
       toast(e.message, "error");
     }
@@ -2636,14 +2662,36 @@ function AdminsTab({ toast, currentUser }) {
                       )}
                       {currentUser?.isSuperAdmin &&
                         currentUser?.email !== admin.email &&
-                        !admin.is_super_admin &&
                         admin.account_setup === 1 && (
-                          <button
-                            className="btn btn-sm btn-danger"
-                            onClick={() => remove(admin.id, admin.name)}
-                          >
-                            Remove
-                          </button>
+                          <>
+                            {admin.is_super_admin === 1 ? (
+                              <button
+                                className="btn btn-sm"
+                                onClick={() => toggleRole(admin.id, admin.name, true)}
+                                disabled={superAdminsCount <= 1}
+                                title={superAdminsCount <= 1 ? "Cannot demote the only super admin" : "Demote to regular admin"}
+                              >
+                                Demote
+                              </button>
+                            ) : (
+                              <button
+                                className="btn btn-sm"
+                                onClick={() => toggleRole(admin.id, admin.name, false)}
+                                disabled={superAdminsCount >= 5}
+                                title={superAdminsCount >= 5 ? "Maximum of 5 super admins reached" : "Promote to super admin"}
+                              >
+                                Promote
+                              </button>
+                            )}
+                            {!admin.is_super_admin && (
+                              <button
+                                className="btn btn-sm btn-danger"
+                                onClick={() => remove(admin.id, admin.name)}
+                              >
+                                Remove
+                              </button>
+                            )}
+                          </>
                         )}
                     </div>
                   </td>

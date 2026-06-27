@@ -59,6 +59,7 @@ export const api = {
   addAdmin: (b) => request("POST", "/admins", b),
   resendAdminInvite: (id) => request("POST", `/admins/${id}/resend-invite`),
   deleteAdmin: (id) => request("DELETE", `/admins/${id}`),
+  updateAdminRole: (id, isSuperAdmin) => request("PUT", `/admins/${id}/role`, { isSuperAdmin }),
 
   // Admin
   getStats: () => request("GET", "/stats"),

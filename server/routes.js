@@ -408,6 +408,40 @@ router.delete("/admins/:id", requireAdmin, async (req, res) => {
   }
 });
 
+router.put("/admins/:id/role", requireAdmin, async (req, res) => {
+  try {
+    await db.getDb();
+    if (!req.user.isSuperAdmin) {
+      return res.status(403).json({ ok: false, error: "Only super admins can manage roles" });
+    }
+    const targetAdminId = Number(req.params.id);
+    const { isSuperAdmin } = req.body;
+    if (isSuperAdmin === undefined) {
+      return res.status(400).json({ ok: false, error: "isSuperAdmin field required" });
+    }
+
+    const targetIsSuperAdmin = isSuperAdmin ? 1 : 0;
+    const admins = await db.getAdmins();
+
+    if (targetIsSuperAdmin === 1) {
+      const superAdminsCount = admins.filter(a => a.is_super_admin === 1).length;
+      if (superAdminsCount >= 5) {
+        return res.status(400).json({ ok: false, error: "Maximum limit of 5 super admins reached" });
+      }
+    } else {
+      const superAdmins = admins.filter(a => a.is_super_admin === 1);
+      if (superAdmins.length <= 1 && superAdmins.some(a => a.id === targetAdminId)) {
+        return res.status(400).json({ ok: false, error: "Cannot demote the only super admin" });
+      }
+    }
+
+    const updated = await db.updateAdmin(targetAdminId, { is_super_admin: targetIsSuperAdmin });
+    res.json({ ok: true, admin: updated });
+  } catch (e) {
+    res.status(500).json({ ok: false, error: e.message });
+  }
+});
+
 // ─── Admin: Drivers ───────────────────────────────────────────────────────────
 
 router.get("/drivers", requireAdmin, async (req, res) => {

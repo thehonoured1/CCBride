@@ -70,7 +70,7 @@ async function getAdminByInviteToken(token) {
 }
 
 async function updateAdmin(id, fields) {
-  const allowed = ["name", "email", "password_hash", "invite_token", "account_setup"];
+  const allowed = ["name", "email", "password_hash", "invite_token", "account_setup", "is_super_admin"];
   const f = {};
   for (const k of allowed) if (fields[k] !== undefined) f[k] = fields[k];
   
