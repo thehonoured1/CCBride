@@ -114,12 +114,13 @@ async function getDriverByInviteToken(token) {
 
 async function addDriver({ name, email = "", phone = "" }) {
   const inviteToken = crypto.randomBytes(32).toString("hex");
-  const { data } = await supabase.from("drivers").insert([{
+  const { data, error } = await supabase.from("drivers").insert([{
     name: name.trim(),
     email: email.trim().toLowerCase(),
     phone: phone.trim(),
     invite_token: inviteToken
   }]).select().single();
+  if (error) throw new Error("Database Error in addDriver: " + error.message);
   return data;
 }
 
@@ -170,7 +171,7 @@ async function addRider({ name, email, phone = "", address }) {
   const token = crypto.randomBytes(24).toString("hex");
   const inviteToken = crypto.randomBytes(32).toString("hex");
   
-  const { data } = await supabase.from("riders").insert([{
+  const { data, error } = await supabase.from("riders").insert([{
     name: name.trim(),
     email: email.trim().toLowerCase(),
     phone: phone.trim(),
@@ -178,6 +179,7 @@ async function addRider({ name, email, phone = "", address }) {
     token: token,
     invite_token: inviteToken
   }]).select().single();
+  if (error) throw new Error("Database Error in addRider: " + error.message);
   return data;
 }
 
