@@ -1262,6 +1262,85 @@ function DriverModal({ driver, onSave, onClose }) {
   );
 }
 
+function RequestDetailsModal({ request, onClose }) {
+  return (
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal" onClick={(e) => e.stopPropagation()}>
+        <h2>Request details</h2>
+        <p className="modal-sub">
+          Rider: <strong>{request.rider_name}</strong>
+        </p>
+
+        <div style={{ display: "flex", flexDirection: "column", gap: 14, marginTop: 14 }}>
+          <div className="field">
+            <label>Rider Email</label>
+            <input readOnly value={request.rider_email} />
+          </div>
+
+          <div className="field">
+            <label>Destination</label>
+            <input readOnly value={request.destination} />
+          </div>
+
+          <div className="field">
+            <label>Type</label>
+            <div>
+              <span className={`badge ${request.type === "custom" ? "badge-demo" : "badge-neutral"}`}>
+                {request.type === "custom" ? "Custom Request" : "Auto Request (Sunday)"}
+              </span>
+            </div>
+          </div>
+
+          {(request.ride_date || request.ride_time) && (
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                gap: 12,
+              }}
+            >
+              <div className="field">
+                <label>Requested Date</label>
+                <input readOnly value={request.ride_date ? fmtDate(request.ride_date) : "—"} />
+              </div>
+              <div className="field">
+                <label>Requested Time</label>
+                <input readOnly value={request.ride_time || "—"} />
+              </div>
+            </div>
+          )}
+
+          <div className="field">
+            <label>Notes</label>
+            <textarea
+              readOnly
+              value={request.notes || "No notes provided."}
+              rows={3}
+              style={{
+                width: "100%",
+                padding: "8px 12px",
+                background: "var(--bg3)",
+                border: "1px solid var(--border)",
+                borderRadius: "var(--radius)",
+                color: "var(--text)",
+                fontFamily: "inherit",
+                fontSize: 13,
+                resize: "none"
+              }}
+            />
+          </div>
+        </div>
+
+        <div className="modal-footer">
+          <button className="btn btn-primary" onClick={onClose}>
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ─── Admin tab components ─────────────────────────────────────────────────────
 
 function RequestsTab({ toast }) {
@@ -1270,6 +1349,7 @@ function RequestsTab({ toast }) {
   const [week, setWeek] = useState("");
   const [loading, setLoading] = useState(true);
   const [assigning, setAssigning] = useState(null);
+  const [viewingDetails, setViewingDetails] = useState(null);
 
   async function load() {
     setLoading(true);
@@ -1444,6 +1524,12 @@ function RequestsTab({ toast }) {
                   <td>
                     <div className="action-row">
                       <button
+                        className="btn btn-sm btn-neutral"
+                        onClick={() => setViewingDetails(req)}
+                      >
+                        Details
+                      </button>
+                      <button
                         className="btn btn-sm btn-primary"
                         onClick={() => setAssigning(req)}
                       >
@@ -1485,6 +1571,12 @@ function RequestsTab({ toast }) {
           drivers={drivers}
           onAssign={handleAssigned}
           onClose={() => setAssigning(null)}
+        />
+      )}
+      {viewingDetails && (
+        <RequestDetailsModal
+          request={viewingDetails}
+          onClose={() => setViewingDetails(null)}
         />
       )}
     </div>
