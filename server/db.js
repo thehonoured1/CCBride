@@ -97,17 +97,34 @@ async function getDrivers(activeOnly = false) {
   return data || [];
 }
 
+async function getDriverById(id) {
+  const { data } = await supabase.from("drivers").select("*").eq("id", id).maybeSingle();
+  return data;
+}
+
+async function getDriverByEmail(email) {
+  const { data } = await supabase.from("drivers").select("*").eq("email", email.toLowerCase()).maybeSingle();
+  return data;
+}
+
+async function getDriverByInviteToken(token) {
+  const { data } = await supabase.from("drivers").select("*").eq("invite_token", token).maybeSingle();
+  return data;
+}
+
 async function addDriver({ name, email = "", phone = "" }) {
+  const inviteToken = crypto.randomBytes(32).toString("hex");
   const { data } = await supabase.from("drivers").insert([{
     name: name.trim(),
     email: email.trim().toLowerCase(),
-    phone: phone.trim()
+    phone: phone.trim(),
+    invite_token: inviteToken
   }]).select().single();
   return data;
 }
 
 async function updateDriver(id, fields) {
-  const allowed = ["name", "email", "phone", "active"];
+  const allowed = ["name", "email", "phone", "active", "password_hash", "invite_token", "account_setup", "capacity", "availability_status", "availability_message"];
   const f = {};
   for (const k of allowed) if (fields[k] !== undefined) f[k] = fields[k];
   
@@ -227,6 +244,17 @@ async function getRequestsForRider(riderId) {
   return (data || []).map(flattenRequest);
 }
 
+async function getRequestsForDriver(driverId, weekDate) {
+  const { data } = await supabase
+    .from("ride_requests")
+    .select(`*, riders:rider_id (name, email, phone, address)`)
+    .eq("driver_id", driverId)
+    .eq("week_date", weekDate)
+    .order("pickup_time", { ascending: true });
+  
+  return (data || []).map(flattenRequest);
+}
+
 async function createRequest({ riderId, weekDate, destination = "CCB", type = "auto", rideDate = null, rideTime = null, notes = null }) {
   // Upsert handles the INSERT OR IGNORE behavior
   const { data } = await supabase.from("ride_requests").upsert({
@@ -322,6 +350,9 @@ module.exports = {
   updateAdmin,
   deleteAdmin,
   getDrivers,
+  getDriverById,
+  getDriverByEmail,
+  getDriverByInviteToken,
   addDriver,
   updateDriver,
   deleteDriver,
@@ -336,6 +367,7 @@ module.exports = {
   getRequestsForWeek,
   getAllRequests,
   getRequestsForRider,
+  getRequestsForDriver,
   createRequest,
   updateRequestStatus,
   assignDriver,

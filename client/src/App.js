@@ -103,7 +103,7 @@ function AuthLayout({ children, title, sub }) {
 }
 
 function LoginPage({ onLogin }) {
-  const [mode, setMode] = useState("admin"); // 'admin' | 'rider'
+  const [mode, setMode] = useState("admin"); // 'admin' | 'rider' | 'driver'
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -118,7 +118,7 @@ function LoginPage({ onLogin }) {
     setLoading(true);
     setError("");
     try {
-      const fn = mode === "admin" ? api.adminLogin : api.riderLogin;
+      const fn = mode === "admin" ? api.adminLogin : mode === "rider" ? api.riderLogin : api.driverLogin;
       const data = await fn({ email, password });
       api.saveSession(data.token, data.role, data.name);
       onLogin({
@@ -134,7 +134,7 @@ function LoginPage({ onLogin }) {
   }
 
   return (
-    <AuthLayout title={mode === "admin" ? "Admin sign in" : "Rider sign in"}>
+    <AuthLayout title={mode === "admin" ? "Admin sign in" : mode === "rider" ? "Rider sign in" : "Driver sign in"}>
       {/* Tab switcher */}
       <div
         style={{
@@ -145,7 +145,7 @@ function LoginPage({ onLogin }) {
           marginBottom: 24,
         }}
       >
-        {["admin", "rider"].map((m) => (
+        {["admin", "rider", "driver"].map((m) => (
           <button
             key={m}
             onClick={() => {
@@ -167,7 +167,7 @@ function LoginPage({ onLogin }) {
               boxShadow: mode === m ? "0 1px 4px rgba(0,0,0,0.3)" : "none",
             }}
           >
-            {m === "admin" ? "🔧 Admin" : "👤 Rider"}
+            {m === "admin" ? "🔧 Admin" : m === "rider" ? "👤 Rider" : "🚗 Driver"}
           </button>
         ))}
       </div>
@@ -1724,6 +1724,15 @@ function DriversTab({ toast }) {
     }
   }
 
+  async function resendSetup(id, name) {
+    try {
+      await api.resendDriverInvite(id);
+      toast(`Setup email resent to ${name}`);
+    } catch (e) {
+      toast(e.message, "error");
+    }
+  }
+
   return (
     <div>
       <div
@@ -1771,6 +1780,9 @@ function DriversTab({ toast }) {
                 <th>Name</th>
                 <th>Email</th>
                 <th>Phone</th>
+                <th>Account</th>
+                <th>Availability</th>
+                <th>Capacity</th>
                 <th>Status</th>
                 <th>Actions</th>
               </tr>
@@ -1795,6 +1807,30 @@ function DriversTab({ toast }) {
                   </td>
                   <td style={{ fontSize: 12.5, color: "var(--text2)" }}>
                     {d.phone || "—"}
+                  </td>
+                  <td>
+                    {d.account_setup ? (
+                      <span className="badge badge-approved">
+                        <span className="dot" />
+                        Set up
+                      </span>
+                    ) : (
+                      <span className="badge badge-warn">
+                        <span className="dot" />
+                        Pending
+                      </span>
+                    )}
+                  </td>
+                  <td>
+                    {d.availability_status ? (
+                       <span style={{ color: "var(--green)", fontWeight: 500 }}>Available</span>
+                    ) : (
+                       <span style={{ color: "var(--text3)", fontWeight: 500 }}>Unavailable</span>
+                    )}
+                    {d.availability_message && <div style={{ fontSize: 11.5, color: "var(--text2)", marginTop: 4, fontStyle: "italic", maxWidth: 180, whiteSpace: "normal" }}>"{d.availability_message}"</div>}
+                  </td>
+                  <td>
+                    {d.capacity || 4}
                   </td>
                   <td>
                     <div
@@ -1822,6 +1858,15 @@ function DriversTab({ toast }) {
                       >
                         Edit
                       </button>
+                      {!d.account_setup && (
+                        <button
+                          className="btn btn-sm"
+                          onClick={() => resendSetup(d.id, d.name)}
+                          title="Resend setup email"
+                        >
+                          📧 Resend
+                        </button>
+                      )}
                       <button
                         className="btn btn-sm btn-danger"
                         onClick={() => remove(d.id, d.name)}
@@ -2806,6 +2851,129 @@ function AdminDashboard({ user, onLogout }) {
   );
 }
 
+// ─── Driver Dashboard ─────────────────────────────────────────────────────────
+
+function DriverDashboard({ user, onLogout }) {
+  const { toast, toasts } = useToast();
+  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState({ requests: [], driver: {}, week: "" });
+  
+  const [availabilityStatus, setAvailabilityStatus] = useState(1);
+  const [availabilityMessage, setAvailabilityMessage] = useState("");
+  const [capacity, setCapacity] = useState(4);
+  const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    load();
+  }, []);
+
+  async function load() {
+    try {
+      const res = await api.getDriverDashboard();
+      setData(res);
+      setAvailabilityStatus(res.driver.availability_status ?? 1);
+      setAvailabilityMessage(res.driver.availability_message || "");
+      setCapacity(res.driver.capacity ?? 4);
+    } catch (e) {
+      toast(e.message, "error");
+    } finally {
+      setLoading(false);
+    }
+  }
+  
+  async function saveStatus(e) {
+    e.preventDefault();
+    setSaving(true);
+    try {
+      await api.updateDriverStatus({
+        availability_status: availabilityStatus,
+        availability_message: availabilityMessage,
+        capacity: capacity
+      });
+      toast("Status updated");
+    } catch(e) {
+      toast(e.message, "error");
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  if (loading) return <div style={{ padding: 40, textAlign: "center" }}>Loading...</div>;
+
+  return (
+    <div style={{ padding: "40px 20px", maxWidth: 800, margin: "0 auto" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 32 }}>
+        <div>
+          <h1 style={{ fontSize: 24, fontWeight: 700 }}>🚗 Driver Dashboard</h1>
+          <div style={{ color: "var(--text3)", marginTop: 4 }}>Welcome, {user.name}</div>
+        </div>
+        <button onClick={onLogout} className="btn">Sign out</button>
+      </div>
+
+      <div className="card" style={{ padding: 24, marginBottom: 24 }}>
+        <h2 style={{ fontSize: 18, fontWeight: 600, marginBottom: 16 }}>My Status (Week of {fmtDate(data.week)})</h2>
+        <form onSubmit={saveStatus}>
+          <div className="field" style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <input 
+              type="checkbox" 
+              id="avail"
+              checked={availabilityStatus === 1} 
+              onChange={e => setAvailabilityStatus(e.target.checked ? 1 : 0)} 
+              style={{ width: 18, height: 18 }}
+            />
+            <label htmlFor="avail" style={{ margin: 0, fontWeight: 500 }}>I am available to drive this week</label>
+          </div>
+          
+          <div className="field">
+            <label>Message to Admin (Optional)</label>
+            <textarea
+              value={availabilityMessage}
+              onChange={e => setAvailabilityMessage(e.target.value)}
+              placeholder="e.g. Can only drive in the morning..."
+              rows={2}
+            />
+          </div>
+          
+          <div className="field">
+            <label>Car Seat Capacity</label>
+            <input
+              type="number"
+              min={1}
+              max={15}
+              value={capacity}
+              onChange={e => setCapacity(parseInt(e.target.value, 10))}
+              style={{ width: 100 }}
+            />
+          </div>
+          
+          <button type="submit" className="btn btn-primary" disabled={saving}>
+            {saving ? "Saving..." : "Update Status"}
+          </button>
+        </form>
+      </div>
+
+      <div className="card" style={{ padding: 24 }}>
+        <h2 style={{ fontSize: 18, fontWeight: 600, marginBottom: 16 }}>My Riders This Week</h2>
+        {data.requests.length === 0 ? (
+          <div style={{ color: "var(--text3)", fontStyle: "italic" }}>No riders assigned yet.</div>
+        ) : (
+          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+            {data.requests.map(r => (
+              <div key={r.id} style={{ padding: 16, border: "1px solid var(--border)", borderRadius: "var(--radius)" }}>
+                <div style={{ fontWeight: 600, fontSize: 16 }}>{r.rider_name}</div>
+                <div style={{ color: "var(--text2)", fontSize: 14, marginTop: 4 }}>📍 Pickup: {r.pickup_address || r.rider_address || "Not specified"}</div>
+                {r.pickup_time && <div style={{ color: "var(--text2)", fontSize: 14, marginTop: 4 }}>⏰ Time: {r.pickup_time}</div>}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <ToastContainer toasts={toasts} />
+    </div>
+  );
+}
+
 // ─── Root App — routing ───────────────────────────────────────────────────────
 
 export default function App() {
@@ -2900,6 +3068,10 @@ export default function App() {
   // Rider portal
   if (user.role === "rider")
     return <RiderPortal user={user} onLogout={handleLogout} />;
+
+  // Driver portal
+  if (user.role === "driver")
+    return <DriverDashboard user={user} onLogout={handleLogout} />;
 
   // Admin dashboard
   return <AdminDashboard user={user} onLogout={handleLogout} />;

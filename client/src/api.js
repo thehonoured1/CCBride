@@ -50,6 +50,7 @@ export const api = {
   setupAdmin: (b) => request("POST", "/auth/setup", b, false),
   adminLogin: (b) => request("POST", "/auth/admin/login", b, false),
   riderLogin: (b) => request("POST", "/auth/rider/login", b, false),
+  driverLogin: (b) => request("POST", "/auth/driver/login", b, false),
   setupAccount: (b) => request("POST", "/auth/setup-account", b, false),
   getMe: () => request("GET", "/auth/me"),
 
@@ -70,6 +71,7 @@ export const api = {
   updateRider: (id, b) => request("PATCH", `/riders/${id}`, b),
   deleteRider: (id) => request("DELETE", `/riders/${id}`),
   resendInvite: (id) => request("POST", `/riders/${id}/resend-invite`),
+  resendDriverInvite: (id) => request("POST", `/drivers/${id}/resend-invite`),
   resendSetup: (id) => request("POST", `/riders/${id}/resend-invite`),
   getCurrentRequests: () => request("GET", "/requests/current"),
   getAllRequests: () => request("GET", "/requests"),
@@ -89,6 +91,10 @@ export const api = {
   createRiderRequest: (b) => request("POST", "/rider/requests", b),
   cancelRequest: (id) => request("DELETE", `/rider/requests/${id}`),
   cancelRiderRequest: (id) => request("DELETE", `/rider/requests/${id}`),
+
+  // Driver portal
+  getDriverDashboard: () => request("GET", "/driver/dashboard"),
+  updateDriverStatus: (b) => request("POST", "/driver/status", b),
 
   // Helpers
   getToken,

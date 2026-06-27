@@ -50,6 +50,18 @@ function requireRider(req, res, next) {
   next();
 }
 
+function requireDriver(req, res, next) {
+  const header = req.headers.authorization || "";
+  const token = header.startsWith("Bearer ") ? header.slice(7) : null;
+  if (!token)
+    return res.status(401).json({ ok: false, error: "Not authenticated" });
+  const payload = verifyToken(token);
+  if (!payload || payload.role !== "driver")
+    return res.status(403).json({ ok: false, error: "Driver access required" });
+  req.user = payload;
+  next();
+}
+
 function requireAuth(req, res, next) {
   const header = req.headers.authorization || "";
   const token = header.startsWith("Bearer ") ? header.slice(7) : null;
@@ -69,5 +81,6 @@ module.exports = {
   verifyToken,
   requireAdmin,
   requireRider,
+  requireDriver,
   requireAuth,
 };

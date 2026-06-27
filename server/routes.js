@@ -7,6 +7,7 @@ const {
   signToken,
   requireAdmin,
   requireRider,
+  requireDriver,
 } = require("./auth");
 const {
   sendInviteEmail,
@@ -164,6 +165,47 @@ router.post("/auth/rider/login", async (req, res) => {
   }
 });
 
+// POST /api/auth/driver/login
+router.post("/auth/driver/login", async (req, res) => {
+  try {
+    await db.getDb();
+    const { email, password } = req.body;
+    if (!email || !password)
+      return res
+        .status(400)
+        .json({ ok: false, error: "email and password required" });
+    const driver = await db.getDriverByEmail(email);
+    if (!driver)
+      return res
+        .status(401)
+        .json({ ok: false, error: "Invalid email or password" });
+    if (!driver.account_setup)
+      return res
+        .status(403)
+        .json({
+          ok: false,
+          error: "Account not set up yet. Check your invite email.",
+        });
+    if (!driver.active)
+      return res
+        .status(403)
+        .json({ ok: false, error: "Your account is inactive. Contact admin." });
+    if (!checkPassword(password, driver.password_hash))
+      return res
+        .status(401)
+        .json({ ok: false, error: "Invalid email or password" });
+    const token = signToken({
+      id: driver.id,
+      email: driver.email,
+      name: driver.name,
+      role: "driver",
+    });
+    res.json({ ok: true, token, name: driver.name, role: "driver" });
+  } catch (e) {
+    res.status(500).json({ ok: false, error: e.message });
+  }
+});
+
 // POST /api/auth/setup-account  — rider OR admin sets password via invite link
 router.post("/auth/setup-account", async (req, res) => {
   try {
@@ -218,6 +260,22 @@ router.post("/auth/setup-account", async (req, res) => {
       });
     }
 
+    const driver = await db.getDriverByInviteToken(inviteToken);
+    if (driver) {
+      await db.updateDriver(driver.id, {
+        password_hash: hashPassword(password),
+        account_setup: 1,
+        invite_token: null,
+      });
+      const token = signToken({
+        id: driver.id,
+        email: driver.email,
+        name: driver.name,
+        role: "driver",
+      });
+      return res.json({ ok: true, token, name: driver.name, role: "driver" });
+    }
+
     return res
       .status(400)
       .json({ ok: false, error: "Invalid or expired invite link" });
@@ -246,6 +304,10 @@ router.get("/auth/me", async (req, res) => {
   } else if (payload.role === "rider") {
     const rider = await db.getRiderByEmail(payload.email);
     if (!rider || !rider.active)
+      return res.status(401).json({ ok: false, error: "Account not found" });
+  } else if (payload.role === "driver") {
+    const driver = await db.getDriverByEmail(payload.email);
+    if (!driver || !driver.active)
       return res.status(401).json({ ok: false, error: "Account not found" });
   }
 
@@ -365,9 +427,27 @@ router.post("/drivers", requireAdmin, async (req, res) => {
       return res
         .status(400)
         .json({ ok: false, error: "name and email required" });
-    res.json({ ok: true, driver: await db.addDriver({ name, email, phone }) });
+    
+    const driver = await db.addDriver({ name, email, phone });
+    const appUrl = (process.env.APP_URL || "http://localhost:3001").replace(
+      /\/$/,
+      "",
+    );
+    const setupUrl = `${appUrl}/setup-account?token=${driver.invite_token}`;
+    
+    if (process.env.GMAIL_USER) {
+      try {
+        await sendInviteEmail(driver, setupUrl);
+      } catch (err) {
+        console.warn("[api] Could not send invite email:", err.message);
+      }
+    }
+    res.json({ ok: true, driver, setupUrl });
   } catch (e) {
-    res.status(400).json({ ok: false, error: e.message });
+    const msg = e.message.includes("UNIQUE") || e.message.includes("duplicate key")
+      ? "Email already exists"
+      : e.message;
+    res.status(400).json({ ok: false, error: msg });
   }
 });
 
@@ -388,6 +468,32 @@ router.delete("/drivers/:id", requireAdmin, async (req, res) => {
     await db.getDb();
     await db.deleteDriver(Number(req.params.id));
     res.json({ ok: true });
+  } catch (e) {
+    res.status(500).json({ ok: false, error: e.message });
+  }
+});
+
+router.post("/drivers/:id/resend-invite", requireAdmin, async (req, res) => {
+  try {
+    await db.getDb();
+    const crypto = require("crypto");
+    const driver = await db.getDriverById(Number(req.params.id));
+    if (!driver)
+      return res.status(404).json({ ok: false, error: "Driver not found" });
+    if (driver.account_setup)
+      return res
+        .status(400)
+        .json({ ok: false, error: "Account already set up" });
+    const newToken = crypto.randomBytes(32).toString("hex");
+    await db.updateDriver(driver.id, { invite_token: newToken });
+    const appUrl = (process.env.APP_URL || "http://localhost:3001").replace(
+      /\/$/,
+      "",
+    );
+    const setupUrl = `${appUrl}/setup-account?token=${newToken}`;
+    if (process.env.GMAIL_USER)
+      await sendInviteEmail({ ...driver, invite_token: newToken }, setupUrl);
+    res.json({ ok: true, setupUrl });
   } catch (e) {
     res.status(500).json({ ok: false, error: e.message });
   }
@@ -830,6 +936,56 @@ router.delete("/rider/requests/:id", requireRider, async (req, res) => {
         .json({ ok: false, error: "Cannot cancel an approved request" });
     await db.run("DELETE FROM ride_requests WHERE id = ?", [Number(req.params.id)]);
     res.json({ ok: true });
+  } catch (e) {
+    res.status(500).json({ ok: false, error: e.message });
+  }
+});
+
+// ─── Driver portal API ────────────────────────────────────────────────────────
+
+// GET /api/driver/dashboard
+router.get("/driver/dashboard", requireDriver, async (req, res) => {
+  try {
+    await db.getDb();
+    const driver = await db.getDriverById(req.user.id);
+    if (!driver)
+      return res.status(404).json({ ok: false, error: "Driver not found" });
+    
+    const week = db.getThisSundayDate();
+    const requests = await db.getRequestsForDriver(driver.id, week);
+    
+    res.json({
+      ok: true,
+      driver: {
+        capacity: driver.capacity,
+        availability_status: driver.availability_status,
+        availability_message: driver.availability_message,
+      },
+      requests,
+      week
+    });
+  } catch (e) {
+    res.status(500).json({ ok: false, error: e.message });
+  }
+});
+
+// POST /api/driver/status
+router.post("/driver/status", requireDriver, async (req, res) => {
+  try {
+    await db.getDb();
+    const { availability_status, availability_message, capacity } = req.body;
+    
+    const updated = await db.updateDriver(req.user.id, {
+      availability_status: availability_status ? 1 : 0,
+      availability_message: availability_message || "",
+      capacity: capacity ? parseInt(capacity, 10) : 4
+    });
+    
+    res.json({ ok: true, driver: {
+      capacity: updated.capacity,
+      availability_status: updated.availability_status,
+      availability_message: updated.availability_message,
+    }});
   } catch (e) {
     res.status(500).json({ ok: false, error: e.message });
   }
